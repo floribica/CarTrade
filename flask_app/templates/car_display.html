@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarTrade</title>
+  <link rel="shortcut icon" type="image/icon" href="../static/assets/logo/favicon.png"/>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .carousel {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    .carousel-images {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .carousel-images img {
+      max-height: 300px;
+      width: 100%;
+      border-radius: 8px;
+    }
+    .carousel-control {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+    }
+    .carousel-control button {
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      border-radius: 50%;
+    }
+    .car-details {
+      margin-bottom: 20px;
+    }
+    .car-details h2 {
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Car Details</h1>
+    <div class="carousel">
+      <div class="carousel-images">
+        {% for image in images %}
+          <img src="../static/images/{{image.image_url}}" alt="Car Image">
+        {% endfor %}
+      </div>
+      <div class="carousel-control">
+        <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="next" onclick="moveSlide(1)">&#10095;</button>
+      </div>
+    </div>
+    <div class="car-details">
+      <h2>{{ car.brand }} {{ car.model }}</h2>
+      <p><strong>Year:</strong> {{ car.year }}</p>
+      <p><strong>Price:</strong> ${{ car.price }}</p>
+      <p><strong>Mileage:</strong> {{ car.km }} Km</p>
+      <p><strong>Description:</strong> {{ car.DESCRIPTION }}</p>
+    </div>
+  </div>
+
+  <script>
+    let currentIndex = 0;
+
+    function moveSlide(step) {
+      const slides = document.querySelectorAll('.carousel-images img');
+      const totalSlides = slides.length;
+      currentIndex = (currentIndex + step + totalSlides) % totalSlides;
+      const offset = -currentIndex * 100;
+      document.querySelector('.carousel-images').style.transform = `translateX(${offset}%)`;
+    }
+  </script>
+</body>
+</html>

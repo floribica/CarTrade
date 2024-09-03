@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CarTrader</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/icon" href="../static/../static/assets/logo/favicon.png"/>
+    <!-- Bootstrap Styles -->
+    <link href="../../static/admin_assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles -->
+    <link href="../../static/admin_assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom Styles -->
+    <link href="../../static/admin_assets/css/custom.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <!-- Custom Inline Styles -->
+    <style>
+        /* Centering the form */
+        .form-container {
+            margin: 0 auto;
+            max-width: 600px;
+            background-color: #ffffff;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+
+        /* Styling form elements */
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-shadow: none;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        .form-control:focus {
+            border-color: #5bc0de;
+            box-shadow: 0 0 5px rgba(91, 192, 222, 0.5);
+        }
+
+        .btn-submit {
+            background-color: #5bc0de;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            transition: background-color 0.3s ease-in-out;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: #31b0d5;
+        }
+
+        .btn-reset {
+            background-color: #d9534f;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            transition: background-color 0.3s ease-in-out;
+            width: 100%;
+        }
+
+        .btn-reset:hover {
+            background-color: #c9302c;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 767px) {
+            .form-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <!-- NAVBAR TOP -->
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/add/car">User Admin</a> 
+            </div>
+            <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;">
+                Last access : 30 May 2014 &nbsp; <a href="/logout" class="btn btn-danger square-btn-adjust">Logout</a>
+            </div>
+        </nav>   
+        <!-- NAV SIDE -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <li class="text-center">
+                        <img src="../../static/admin_assets/img/find_user.png" class="user-image img-responsive"/>
+                    </li>
+                    <li>
+                        <a href="/"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="/admin/chart"><i class="fa fa-bar-chart-o fa-3x"></i> Charts</a>
+                    </li>
+                    <li>
+                        <a href="/admin/tables"><i class="fa fa-table fa-3x"></i> Car Table</a>
+                    </li>
+                    <li>
+                        <a class="active-menu" href="/add/car"><i class="fa fa-edit fa-3x"></i> Add Car </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>  
+        <!-- PAGE CONTENT -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <!-- Form Section -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-container">
+                            <h2>Add New Car</h2>
+                            <form method="post" role="form" enctype="multipart/form-data" action="/add/car">
+                                <div class="form-group">
+                                    <label for="carName">Car Name</label>
+                                    <input type="text" name="brand" class="form-control" id="carName" placeholder="Enter Car Name" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="carModel">Car Model</label>
+                                    <input type="text" name="model" class="form-control" id="carModel" placeholder="Enter Car Model" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="style">Style</label>
+                                    <input type="text" name="style" class="form-control" id="style" placeholder="Enter Manufacturer Name" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="price">Price ($)</label>
+                                    <input type="number" name="price" class="form-control" id="price" placeholder="Enter Price" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="year">Year</label>
+                                    <input type="number" name="year" class="form-control" id="year" placeholder="Enter Year" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="mileage">Mileage (km)</label>
+                                    <input type="number" name="km" class="form-control" id="mileage" placeholder="Enter Mileage" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="photo">Photo</label>
+                                    <input type="file" name="image" class="form-control" id="photo" accept="image/*" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <textarea class="form-control" name="description" id="description" rows="5" placeholder="Enter Description" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="condition">Condition</label>
+                                    <div id="condition">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="condition" value="new" required checked/> New
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="condition" value="used" required /> Used
+                                        </label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-submit">Submit</button>
+                                <button type="reset" class="btn btn-reset">Reset</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Form Section -->
+            </div>
+            <!-- End Page Inner -->
+        </div>
+        <!-- End Page Wrapper -->
+    </div>
+    <!-- End Wrapper -->
+    <!-- SCRIPTS -->
+    <script src="../../static/admin_assets/js/jquery-1.10.2.js"></script>
+    <script src="../../static/admin_assets/js/bootstrap.min.js"></script>
+    <script src="../../static/admin_assets/js/jquery.metisMenu.js"></script>
+    <script src="../../static/admin_assets/js/custom.js"></script>
+</body>
+</html>

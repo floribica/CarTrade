@@ -1,0 +1,15 @@
+#ignore env file
+.env
+
+.DS_Store
+.vscode/
+
+__pycache__/
+
+.idea/
+
+WellCareHospital.pem
+
+.patch
+
+.sql
