@@ -139,7 +139,6 @@ def add_car_image(car_id):
     return redirect(request.referrer)
 
 
-#TODO: fix this
 @app.route("/display_car/<int:car_id>")
 def display_car(car_id):
     data = {
@@ -147,11 +146,9 @@ def display_car(car_id):
     }
     car = Car.get_car_by_id(data)
     images = Car_Image.get_images_by_car_id(data)
-    comments = Comment.get_comments_by_car_id(data)
     return render_template(
         'car_display.html',
         car=car,
         images=images,
-        comments=comments
     )
     
