@@ -1,7 +1,7 @@
 from datetime import datetime
 import os
 from dotenv import load_dotenv
-from flask import flash, redirect, render_template, request, session
+from flask import flash, jsonify, redirect, render_template, request, session
 
 from flask_app import app
 from werkzeug.utils import secure_filename
@@ -151,4 +151,19 @@ def display_car(car_id):
         car=car,
         images=images,
     )
+
+
+@app.route('/get_car_details/<int:car_id>')
+def get_car_details(car_id):
+    car = Car.get_car_by_id({"car_id": car_id})
+    car_data = {
+        "id": car["car_id"],
+        "brand": car["brand"], 
+        "model": car["model"],
+        "year": car["year"],
+        "price": car["price"],
+        "km": car["km"],
+        "description": car["DESCRIPTION"]
+    }
+    return jsonify(car_data)
     

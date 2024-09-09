@@ -52,6 +52,7 @@
 		
 		<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     	<script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="../static/js/car_modal.js" ></script>
 
     </head>
 	
@@ -252,7 +253,8 @@
 									</div>
 								</div>
 								<div class="featured-cars-txt">
-									<h2><a href="#">{{car.brand}} {{car.model}} {{car.style}}</a></h2>
+									<!-- Trigger the modal on click -->
+									<h2><a href="javascript:void(0);" onclick="openModal('{{ car.car_id }}')">{{car.brand}} {{car.model}} {{car.style}}</a></h2>
 									<h3>${{car.price}}</h3>
 									<p>
 										{{car.DESCRIPTION}}
@@ -264,10 +266,8 @@
 					</div>
 				</div>
 			</div><!--/.container-->
-
 		</section>
 		{% endif %}
-		<!--search end -->
 		
 		<!--new-cars start -->
 		<section id="new-cars" class="new-cars">
@@ -518,6 +518,25 @@
 		</div>
 		<!-- chatbot end -->
 
+		<!-- Display Modal Start-->
+		<div id="carModal" class="modal">
+			<div class="modal-content">
+			  <span class="close" onclick="closeModal()">&times;</span>
+			  <div id="carousel-images"></div>
+			  <div id="car-details"></div>
+			  <form action="/rent_car" method="POST">
+				<input type="hidden" id="car_id" name="car_id">
+				<input type="date" name="start_date" required>
+				<input type="time" name="start_time" required>
+				<input type="date" name="end_date" required>
+				<input type="time" name="end_time" required>
+				<button type="submit">Rent</button>
+			  </form>
+			</div>
+		  </div>
+		  
+		  <!-- Display Modal End-->		  
+
 		<!--contact start-->
 		<footer id="contact"  class="contact">
 			<div class="container">
@@ -650,11 +669,13 @@
 
         <!--Custom JS-->
         <script src="../static/assets/js/custom.js"></script>
+		
+		
 
 		<script>
 			const cars = {{ all_cars | tojson | safe }};
 			const carsContainer = document.getElementById('featured-cars-content');
-		
+			
 			cars.forEach((car, index) => {
 				// Create a new row every 4 cars
 				if (index % 4 === 0) {
