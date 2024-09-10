@@ -15,6 +15,7 @@ load_dotenv()
 UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER")
 ALLOWED_EXTENSIONS = os.getenv("ALLOWED_EXTENSIONS")
 
+
 @app.route('/show/cars', methods=['POST'])
 def show_cars():
     # Retrieve form data and structure it into a dictionary
@@ -28,16 +29,16 @@ def show_cars():
     }
     if data["year"] == "":
         data["year"] = "default"
-    
+
     for key, value in data.items():
         if value == "default":
             data[key] = None
-    
+
     if all(value is None for value in data.values()):
         search_results = None
     else:
         search_results = Car.get_selected_cars(data)
-        
+
     if 'user' not in session:
         user = {
             "user_id": -1,
@@ -47,10 +48,10 @@ def show_cars():
         }
     else:
         user = session['user']
-        
+
     all_cars = Car.get_all_cars()
     comments = Comment.get_comments()
-    
+
     return render_template(
         'index.html',
         cars=search_results,
@@ -110,10 +111,10 @@ def add_car_image(car_id):
         return redirect('/')
     if session['user']['user_id'] != 1:
         return redirect('/')
-    
+
     if request.method == 'GET':
         return render_template('admin/add_image.html', car_id=car_id)
-    
+
     if 'images' in request.files:
         images = request.files.getlist('images')  # Get list of images
 
@@ -135,7 +136,7 @@ def add_car_image(car_id):
                 else:
                     flash("File not allowed", "image")
                     return redirect(request.referrer)
-    
+
     return redirect(request.referrer)
 
 
@@ -146,8 +147,18 @@ def display_car(car_id):
     }
     car = Car.get_car_by_id(data)
     images = Car_Image.get_images_by_car_id(data)
+    if 'user' not in session:
+        user = {
+            "user_id": -1,
+            "first_name": "user",
+            "last_name": "user",
+            "email": "user"
+        }
+    else:
+        user = session['user']
     return render_template(
         'car_display.html',
+        user=user,
         car=car,
         images=images,
     )
@@ -158,7 +169,7 @@ def get_car_details(car_id):
     car = Car.get_car_by_id({"car_id": car_id})
     car_data = {
         "id": car["car_id"],
-        "brand": car["brand"], 
+        "brand": car["brand"],
         "model": car["model"],
         "year": car["year"],
         "price": car["price"],
@@ -166,4 +177,3 @@ def get_car_details(car_id):
         "description": car["DESCRIPTION"]
     }
     return jsonify(car_data)
-    

@@ -1,6 +1,7 @@
 import re
 from flask_app.models.car import Car
 
+
 def process_message(msg):
     msg = msg.lower()
 
@@ -26,7 +27,7 @@ def process_message(msg):
         'test drive': '[Pafi 🐣]=> Ready for a test drive? I can help schedule it at a time that works for you.',
         'new or used': '[Pafi 🐣]=> Are you looking for a new or used car?',
 
-        
+
     }
 
     # Check for price-related queries

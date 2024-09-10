@@ -24,7 +24,7 @@ class MySQLConnection:
             try:
                 query = cursor.mogrify(query, data)
                 print("Running Query:", query)
-     
+
                 cursor.execute(query)
                 if query.lower().find("insert") >= 0:
                     # INSERT queries will return the ID NUMBER of the row inserted
@@ -43,7 +43,7 @@ class MySQLConnection:
                 return False
             finally:
                 # close the connection
-                self.connection.close() 
+                self.connection.close()
 
 
 # connectToMySQL receives the database we're using and uses it to create an instance of MySQLConnection

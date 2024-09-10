@@ -23,7 +23,6 @@ class Car:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
-
     @classmethod
     def get_all_cars(cls):
         query = "SELECT * FROM cars;"
@@ -33,10 +32,9 @@ class Car:
             cars.append(car)
         return cars
 
-    
     @classmethod
     def get_selected_cars(cls, data):
-        
+
         query = "SELECT * FROM cars WHERE 1=1"
         if data['year']:
             query += " AND year = %(year)s"
@@ -60,8 +58,7 @@ class Car:
                 cars.append(car)
             return cars
         return None
-    
-    
+
     @classmethod
     def count_cars_by_price(cls, price):
         query = "SELECT COUNT(*) FROM cars WHERE price >= %(price)s;"
@@ -70,8 +67,7 @@ class Car:
         }
         result = connectToMySQL(DB_NAME).query_db(query, data)
         return result[0]['COUNT(*)']
-    
-    
+
     @classmethod
     def count_cars_by_year(cls, year):
         query = "SELECT COUNT(*) FROM cars WHERE year = %(year)s;"
@@ -80,8 +76,7 @@ class Car:
         }
         result = connectToMySQL(DB_NAME).query_db(query, data)
         return result[0]['COUNT(*)']
-    
-    
+
     @classmethod
     def count_cars_by_brand(cls, brand):
         query = "SELECT COUNT(*) FROM cars WHERE brand = %(brand)s;"
@@ -90,8 +85,7 @@ class Car:
         }
         result = connectToMySQL(DB_NAME).query_db(query, data)
         return result[0]['COUNT(*)']
-    
-    
+
     @classmethod
     def count_cars_by_style(cls, style):
         query = "SELECT COUNT(*) FROM cars WHERE style = %(style)s;"
@@ -100,8 +94,7 @@ class Car:
         }
         result = connectToMySQL(DB_NAME).query_db(query, data)
         return result[0]['COUNT(*)']
-    
-    
+
     @classmethod
     def count_cars_by_condition(cls, condition):
         query = "SELECT COUNT(*) FROM cars WHERE condition = %(condition)s;"
@@ -110,8 +103,7 @@ class Car:
         }
         result = connectToMySQL(DB_NAME).query_db(query, data)
         return result[0]['COUNT(*)']
-    
-    
+
     @classmethod
     def count_cars_by_model(cls, model):
         query = "SELECT COUNT(*) FROM cars WHERE model = %(model)s;"
@@ -120,8 +112,7 @@ class Car:
         }
         result = connectToMySQL(DB_NAME).query_db(query, data)
         return result[0]['COUNT(*)']
-    
-    
+
     @classmethod
     def count_cars_by_km(cls, km):
         query = "SELECT COUNT(*) FROM cars WHERE km = %(km)s;"
@@ -130,8 +121,7 @@ class Car:
         }
         result = connectToMySQL(DB_NAME).query_db(query, data)
         return result[0]['COUNT(*)']
-    
-    
+
     @classmethod
     def count_cars_by_description(cls, description):
         query = "SELECT COUNT(*) FROM cars WHERE description = %(description)s;"
@@ -141,13 +131,11 @@ class Car:
         result = connectToMySQL(DB_NAME).query_db(query, data)
         return result[0]['COUNT(*)']
 
-
     @classmethod
     def add_car(cls, data):
         query = "INSERT INTO cars (`year`, `brand`, `model`, `style`, `condition`, `price`, `km`, `image`, `DESCRIPTION`) VALUES (%(year)s, %(brand)s, %(model)s, %(style)s, %(condition)s, %(price)s, %(km)s, %(image)s, %(description)s);"
         return connectToMySQL(DB_NAME).query_db(query, data)
-    
-    
+
     @classmethod
     def get_car_by_id(cls, data):
         query = "SELECT * FROM cars WHERE car_id = %(car_id)s;"

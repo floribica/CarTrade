@@ -1,33 +1,65 @@
-function openModal(carId) {
-    console.log('Opening modal for carId:', carId); // Debugging line
-  
-    fetch(`/get_car_details/${carId}`)
-      .then(response => response.json())
-      .then(data => {
-        console.log('Received data:', data); // Debugging line
-  
-        document.getElementById('carousel-images').innerHTML = data.images.map(img => `<img src="../static/images/${img}" alt="Car Image">`).join('');
-        document.getElementById('car-details').innerHTML = `
-          <h2>${data.brand} ${data.model}</h2>
-          <p><strong>Year:</strong> ${data.year}</p>
-          <p><strong>Price:</strong> $${data.price}</p>
-          <p><strong>Mileage:</strong> ${data.km} Km</p>
-          <p><strong>Description:</strong> ${data.description}</p>`;
-        document.getElementById('car_id').value = data.id;
-  
-        // Display the modal
-        document.getElementById('carModal').style.display = 'block';
-      })
-      .catch(error => console.error('Error:', error));
-  }
-  
-  function closeModal() {
-    document.getElementById('carModal').style.display = 'none';
-  }
-  
-  window.onclick = function(event) {
-    if (event.target === document.getElementById('carModal')) {
-      closeModal();
+/**
+ * @license
+ * Copyright 2024 Google LLC. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+async function init() {
+  await customElements.whenDefined('gmp-map');
+
+  const map = document.querySelector("gmp-map");
+  const marker = document.getElementById("marker");
+  const strictBoundsInputElement = document.getElementById("use-strict-bounds");
+  const placePicker = document.getElementById("place-picker");
+  const infowindowContent = document.getElementById("infowindow-content");
+  const infowindow = new google.maps.InfoWindow();
+
+  map.innerMap.setOptions({
+    mapTypeControl: false
+  });
+  infowindow.setContent(infowindowContent);
+
+  placePicker.addEventListener('gmpx-placechange', () => {
+    const place = placePicker.value;
+
+    if (!place.location) {
+      window.alert(
+        "No details available for input: '" + place.name + "'"
+      );
+      infowindow.close();
+      marker.position = null;
+      return;
     }
+
+    if (place.viewport) {
+      map.innerMap.fitBounds(place.viewport);
+    } else {
+      map.center = place.location;
+      map.zoom = 17;
+    }
+
+    marker.position = place.location;
+    infowindowContent.children["place-name"].textContent = place.displayName;
+    infowindowContent.children["place-address"].textContent = place.formattedAddress;
+    infowindow.open(map.innerMap, marker);
+  });
+
+  // Sets a listener on a radio button to change the filter type on the place picker
+  function setupClickListener(id, type) {
+    const radioButton = document.getElementById(id);
+    radioButton.addEventListener("click", () => {
+      placePicker.type = type;
+    });
   }
-  
+  setupClickListener("changetype-all", "");
+  setupClickListener("changetype-address", "address");
+  setupClickListener("changetype-establishment", "establishment");
+  setupClickListener("changetype-geocode", "geocode");
+  setupClickListener("changetype-cities", "(cities)");
+  setupClickListener("changetype-regions", "(regions)");
+
+  strictBoundsInputElement.addEventListener("change", () => {
+    placePicker.strictBounds = strictBoundsInputElement.checked;
+  });
+}
+
+document.addEventListener('DOMContentLoaded', init);

@@ -12,6 +12,7 @@ from flask_app.models.user import User
 bcrypt = Bcrypt(app)
 socketio = SocketIO(app)
 
+
 @app.route("/")
 def check():
     if 'user' not in session or session['user']['user_id'] != 1:
@@ -22,7 +23,7 @@ def check():
 
 @app.route("/admin")
 def admin():
-    return render_template("admin/index.html", user = session['user'])
+    return render_template("admin/index.html", user=session['user'])
 
 
 @app.route("/dashboard")
@@ -40,9 +41,9 @@ def index():
     comments = Comment.get_comments()
     return render_template(
         'index.html',
-        user = user,
-        all_cars = all_cars,
-        comments = comments
+        user=user,
+        all_cars=all_cars,
+        comments=comments
     )
 
 
@@ -92,5 +93,5 @@ def register():
 
 @socketio.on('message')
 def handleMessage(msg):
-    response = process_message(msg) 
+    response = process_message(msg)
     send(response, broadcast=True)

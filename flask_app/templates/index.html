@@ -1,782 +1,937 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="en">
+  <head>
+    <!-- meta data -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Find your dream car with CarTrade. Browse featured and new cars, and get in touch with us for more details."
+    />
+    <meta
+      name="keywords"
+      content="cars, car dealership, new cars, used cars, car sales"
+    />
 
-    <head>
-        <!-- meta data -->
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="Find your dream car with CarTrade. Browse featured and new cars, and get in touch with us for more details.">
-		<meta name="keywords" content="cars, car dealership, new cars, used cars, car sales">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!--font-family-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
 
-        <!--font-family-->
-		<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css?family=Rufina:400,700"
+      rel="stylesheet"
+    />
 
-		<link href="https://fonts.googleapis.com/css?family=Rufina:400,700" rel="stylesheet">
-        
-        <!-- title of site -->
-        <title>CarTrade</title>
+    <!-- title of site -->
+    <title>CarTrade</title>
 
-        <!-- For favicon png -->
-		<link rel="shortcut icon" type="image/icon" href="../static/../static/assets/logo/favicon.png"/>
-       
-        <!--font-awesome.min.css-->
-        <link rel="stylesheet" href="../static/assets/css/font-awesome.min.css">
+    <!-- For favicon png -->
+    <link
+      rel="shortcut icon"
+      type="image/icon"
+      href="../static/../static/assets/logo/favicon.png"
+    />
 
-        <!--linear icon css-->
-		<link rel="stylesheet" href="../static/assets/css/linearicons.css">
+    <!--font-awesome.min.css-->
+    <link rel="stylesheet" href="../static/assets/css/font-awesome.min.css" />
 
-        <!--flaticon.css-->
-		<link rel="stylesheet" href="../static/assets/css/flaticon.css">
+    <!--linear icon css-->
+    <link rel="stylesheet" href="../static/assets/css/linearicons.css" />
 
-		<!--animate.css-->
-        <link rel="stylesheet" href="../static/assets/css/animate.css">
+    <!--flaticon.css-->
+    <link rel="stylesheet" href="../static/assets/css/flaticon.css" />
 
-        <!--owl.carousel.css-->
-        <link rel="stylesheet" href="../static/assets/css/owl.carousel.min.css">
-		<link rel="stylesheet" href="../static/assets/css/owl.theme.default.min.css">
-		
-        <!--bootstrap.min.css-->
-        <link rel="stylesheet" href="../static/assets/css/bootstrap.min.css">
-		
-		<!-- bootsnav -->
-		<link rel="stylesheet" href="../static/assets/css/bootsnav.css" >	
-        
-        <!--style.css-->
-        <link rel="stylesheet" href="../static/assets/css/style.css">
-        
-        <!--responsive.css-->
-        <link rel="stylesheet" href="../static/assets/css/responsive.css">
-		
-		<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
-    	<script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
-		<script src="../static/js/car_modal.js" ></script>
+    <!--animate.css-->
+    <link rel="stylesheet" href="../static/assets/css/animate.css" />
 
-    </head>
-	
-	<body>
-		<!--welcome-hero start -->
-		<section id="home" class="welcome-hero">
+    <!--owl.carousel.css-->
+    <link rel="stylesheet" href="../static/assets/css/owl.carousel.min.css" />
+    <link
+      rel="stylesheet"
+      href="../static/assets/css/owl.theme.default.min.css"
+    />
 
-			<!-- top-area Start -->
-			<div class="top-area">
-				<div class="header-area">
-					<!-- Start Navigation -->
-				    <nav class="navbar navbar-default bootsnav  navbar-sticky navbar-scrollspy"  data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
+    <!--bootstrap.min.css-->
+    <link rel="stylesheet" href="../static/assets/css/bootstrap.min.css" />
 
-				        <div class="container">
+    <!-- bootsnav -->
+    <link rel="stylesheet" href="../static/assets/css/bootsnav.css" />
 
-				            <!-- Start Header Navigation -->
-				            <div class="navbar-header">
-				                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
-				                    <i class="fa fa-bars"></i>
-				                </button>
-				                <a class="navbar-brand" href="/">CarTrade<span></span></a>
+    <!--style.css-->
+    <link rel="stylesheet" href="../static/assets/css/style.css" />
 
-				            </div><!--/.navbar-header-->
-				            <!-- End Header Navigation -->
-				            <!-- Collect the nav links, forms, and other content for toggling -->
-				            <div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
-				                <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
-				                    <li class=" scroll active"><a href="/">home</a></li>
-				                    <li class="scroll"><a href="#service">service</a></li>
-				                    <li class="scroll"><a href="#featured-cars">featured cars</a></li>
-				                    <li class="scroll"><a href="#new-cars">new cars</a></li>
-				                    <li class="scroll"><a href="#brand">brands</a></li>
-				                    <li class="scroll"><a href="#contact">contact</a></li>
-									{% if user["user_id"] > 0%}
-									<li class=""><a href="/logout">logout</a></li>
-									{% else %}
-									<li class=""><a href="/login">login</a></li>
-									{% endif %}
-									<li class="scroll"><a  href="">{{user["first_name"]}}</a></li>
-				                </ul><!--/.nav -->
-				            </div><!-- /.navbar-collapse -->
-				        </div><!--/.container-->
-				    </nav><!--/nav-->
-				    <!-- End Navigation -->
-				</div><!--/.header-area-->
-			    <div class="clearfix"></div>
+    <!--responsive.css-->
+    <link rel="stylesheet" href="../static/assets/css/responsive.css" />
 
-			</div><!-- /.top-area-->
-			<!-- top-area End -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../static/js/car_modal.js"></script>
+  </head>
 
-			<div class="container">
-				<div class="welcome-hero-txt">
-					<h2>drive your dream today</h2>
-					<button class="welcome-btn" onclick="window.location.href='#'">contact us</button>
-				</div>
-			</div>
+  <body>
+    <!--welcome-hero start -->
+    <section id="home" class="welcome-hero">
+      <!-- top-area Start -->
+      <div class="top-area">
+        <div class="header-area">
+          <!-- Start Navigation -->
+          <nav
+            class="navbar navbar-default bootsnav navbar-sticky navbar-scrollspy"
+            data-minus-value-desktop="70"
+            data-minus-value-mobile="55"
+            data-speed="1000"
+          >
+            <div class="container">
+              <!-- Start Header Navigation -->
+              <div class="navbar-header">
+                <button
+                  type="button"
+                  class="navbar-toggle"
+                  data-toggle="collapse"
+                  data-target="#navbar-menu"
+                >
+                  <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="/">CarTrade<span></span></a>
+              </div>
+              <!--/.navbar-header-->
+              <!-- End Header Navigation -->
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div
+                class="collapse navbar-collapse menu-ui-design"
+                id="navbar-menu"
+              >
+                <ul
+                  class="nav navbar-nav navbar-right"
+                  data-in="fadeInDown"
+                  data-out="fadeOutUp"
+                >
+                  <li class="scroll active"><a href="/">home</a></li>
+                  <li class="scroll"><a href="#service">service</a></li>
+                  <li class="scroll">
+                    <a href="#featured-cars">featured cars</a>
+                  </li>
+                  <li class="scroll"><a href="#new-cars">new cars</a></li>
+                  <li class="scroll"><a href="#brand">brands</a></li>
+                  <li class="scroll"><a href="#contact">contact</a></li>
+                  {% if user["user_id"] > 0%}
+                  <li class=""><a href="/logout">logout</a></li>
+                  {% else %}
+                  <li class=""><a href="/login">login</a></li>
+                  {% endif %}
+                  <li class="scroll"><a href="">{{user["first_name"]}}</a></li>
+                </ul>
+                <!--/.nav -->
+              </div>
+              <!-- /.navbar-collapse -->
+            </div>
+            <!--/.container-->
+          </nav>
+          <!--/nav-->
+          <!-- End Navigation -->
+        </div>
+        <!--/.header-area-->
+        <div class="clearfix"></div>
+      </div>
+      <!-- /.top-area-->
+      <!-- top-area End -->
 
-			<form action="/show/cars#search" method="post" onsubmit="showLoadingIcon()">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="model-search-content">
-								<div class="row">
-									<div class="col-md-offset-1 col-md-2 col-sm-12">
-										<div class="single-model-search">
-											<h2>select year</h2>
-											<div class="model-select-icon">
-													<input type="number" name="year" placeholder="year" class="form-control">
-											</div><!-- /.model-select-icon -->
-										</div>
-										<div class="single-model-search">
-											<h2>body style</h2>
-											<div class="model-select-icon">
-												<select class="form-control" name="style">
-													<option value="default">default</option><!-- /.option-->
-													<option value="sedan">sedan</option><!-- /.option-->
-													<option value="van">van</option><!-- /.option-->
-													<option value="roadster">roadster</option><!-- /.option-->
-												</select><!-- /.select-->
-											</div><!-- /.model-select-icon -->
-										</div>
-									</div>
-									<div class="col-md-offset-1 col-md-2 col-sm-12">
-										<div class="single-model-search">
-											<h2>select make</h2>
-											<div class="model-select-icon">
-												<select class="form-control" name="brand">
+      <div class="container">
+        <div class="welcome-hero-txt">
+          <h2>drive your dream today</h2>
+          <button class="welcome-btn" onclick="window.location.href='#'">
+            contact us
+          </button>
+        </div>
+      </div>
 
-													<option value="default">default</option><!-- /.option-->
+      <form
+        action="/show/cars#search"
+        method="post"
+        onsubmit="showLoadingIcon()"
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="model-search-content">
+                <div class="row">
+                  <div class="col-md-offset-1 col-md-2 col-sm-12">
+                    <div class="single-model-search">
+                      <h2>select year</h2>
+                      <div class="model-select-icon">
+                        <input
+                          type="number"
+                          name="year"
+                          placeholder="year"
+                          class="form-control"
+                        />
+                      </div>
+                      <!-- /.model-select-icon -->
+                    </div>
+                    <div class="single-model-search">
+                      <h2>body style</h2>
+                      <div class="model-select-icon">
+                        <select class="form-control" name="style">
+                          <option value="default">default</option>
+                          <!-- /.option-->
+                          <option value="sedan">sedan</option>
+                          <!-- /.option-->
+                          <option value="van">van</option>
+                          <!-- /.option-->
+                          <option value="roadster">roadster</option>
+                          <!-- /.option--></select
+                        ><!-- /.select-->
+                      </div>
+                      <!-- /.model-select-icon -->
+                    </div>
+                  </div>
+                  <div class="col-md-offset-1 col-md-2 col-sm-12">
+                    <div class="single-model-search">
+                      <h2>select make</h2>
+                      <div class="model-select-icon">
+                        <select class="form-control" name="brand">
+                          <option value="default">default</option>
+                          <!-- /.option-->
 
-													<option value="toyota">toyota</option><!-- /.option-->
+                          <option value="toyota">toyota</option>
+                          <!-- /.option-->
 
-													<option value="holden">holden</option><!-- /.option-->
-													<option value="Mercedes Benz">Mercedes Benz.</option><!-- /.option-->
+                          <option value="holden">holden</option>
+                          <!-- /.option-->
+                          <option value="Mercedes Benz">Mercedes Benz.</option>
+                          <!-- /.option--></select
+                        ><!-- /.select-->
+                      </div>
+                      <!-- /.model-select-icon -->
+                    </div>
+                    <div id="search"></div>
+                    <div class="single-model-search">
+                      <h2>car condition</h2>
+                      <div class="model-select-icon">
+                        <select class="form-control" name="condition">
+                          <option value="default">default</option>
+                          <!-- /.option-->
 
-												</select><!-- /.select-->
-											</div><!-- /.model-select-icon -->
-										</div>
-										<div id="search"></div>
-										<div class="single-model-search">
-											<h2>car condition</h2>
-											<div class="model-select-icon">
-												<select class="form-control" name="condition">
+                          <option value="new">New</option>
+                          <!-- /.option-->
 
-													<option value="default">default</option><!-- /.option-->
+                          <option value="used">Used</option>
+                          <!-- /.option--></select
+                        ><!-- /.select-->
+                      </div>
+                      <!-- /.model-select-icon -->
+                    </div>
+                  </div>
+                  <div class="col-md-offset-1 col-md-2 col-sm-12">
+                    <div class="single-model-search">
+                      <h2>select model</h2>
+                      <div class="model-select-icon">
+                        <select class="form-control" name="model">
+                          <option value="default">default</option>
+                          <!-- /.option-->
 
-													<option value="new">New</option><!-- /.option-->
+                          <option value="kia-rio">kia-rio</option>
+                          <!-- /.option-->
 
-													<option value="used">Used</option><!-- /.option-->
+                          <option value="mitsubishi">mitsubishi</option>
+                          <!-- /.option-->
+                          <option value="ford">ford</option>
+                          <!-- /.option--></select
+                        ><!-- /.select-->
+                      </div>
+                      <!-- /.model-select-icon -->
+                    </div>
+                    <div class="single-model-search">
+                      <h2>select price</h2>
+                      <div class="model-select-icon">
+                        <select class="form-control" name="price">
+                          <option value="default">default</option>
+                          <!-- /.option-->
 
-												</select><!-- /.select-->
-											</div><!-- /.model-select-icon -->
-										</div>
-									</div>
-									<div class="col-md-offset-1 col-md-2 col-sm-12">
-										<div class="single-model-search">
-											<h2>select model</h2>
-											<div class="model-select-icon">
-												<select class="form-control" name="model">
+                          <option value="10000">$10,000.00</option>
+                          <!-- /.option-->
 
-													<option value="default">default</option><!-- /.option-->
+                          <option value="$50000.00">$50,000.00</option>
+                          <!-- /.option-->
+                          <option value="$100000.00">$100,000.00</option>
+                          <!-- /.option--></select
+                        ><!-- /.select-->
+                      </div>
+                      <!-- /.model-select-icon -->
+                    </div>
+                  </div>
+                  <div class="col-md-2 col-sm-12">
+                    <div class="single-model-search text-center">
+                      <button
+                        class="welcome-btn model-search-btn"
+                        onclick="window.location.href='#search'"
+                      >
+                        search
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
 
-													<option value="kia-rio">kia-rio</option><!-- /.option-->
+    <!-- SpinKit Loading Spinner -->
+    <div id="loading-icon" class="sk-chase" style="display: none">
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+    </div>
 
-													<option value="mitsubishi">mitsubishi</option><!-- /.option-->
-													<option value="ford">ford</option><!-- /.option-->
+    <!--welcome-hero end -->
 
-												</select><!-- /.select-->
-											</div><!-- /.model-select-icon -->
-										</div>
-										<div class="single-model-search">
-											<h2>select price</h2>
-											<div class="model-select-icon">
-												<select class="form-control" name="price">
+    <!--search start -->
+    {% if cars %}
+    <section class="featured-cars">
+      <div class="container">
+        <div class="section-header">
+          <p>checkout <span>the</span> Search cars</p>
+          <h2>Search cars</h2>
+        </div>
+        <!--/.section-header-->
+        <div class="featured-cars-content">
+          <div class="row">
+            {% for car in cars %}
+            <div class="col-lg-3 col-md-4 col-sm-6">
+              <div class="single-featured-cars">
+                <div class="featured-img-box">
+                  <div class="featured-cars-img">
+                    <img src="../static/images/{{car.image}}" alt="cars" />
+                  </div>
+                  <div class="featured-model-info">
+                    <p>
+                      Year: {{car.year}}
+                      <span class="featured-mi-span"> {{car.km}} KM</span>
+                      <span class="featured-hp-span"> {{car.condition}}</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="featured-cars-txt">
+                  <!-- Trigger the modal on click -->
+                  <h2>
+                    <a
+                      href="javascript:void(0);"
+                      onclick="openModal('{{ car.car_id }}')"
+                      >{{car.brand}} {{car.model}} {{car.style}}</a
+                    >
+                  </h2>
+                  <h3>${{car.price}}</h3>
+                  <p>{{car.DESCRIPTION}}</p>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <!--/.container-->
+    </section>
+    {% endif %}
 
-													<option value="default">default</option><!-- /.option-->
+    <!--new-cars start -->
+    <section id="new-cars" class="new-cars">
+      <div class="container">
+        <div class="section-header">
+          <p>checkout <span>the</span> latest cars</p>
+          <h2>newest cars</h2>
+        </div>
+        <!--/.section-header-->
+        <div class="new-cars-content">
+          <div class="owl-carousel owl-theme" id="new-cars-carousel">
+            <div class="new-cars-item">
+              <div class="single-new-cars-item">
+                <div class="row">
+                  <div class="col-md-7 col-sm-12">
+                    <div class="new-cars-img">
+                      <img
+                        src="../static/assets/images/new-cars-model/ncm2.jpg"
+                        alt="img"
+                      />
+                    </div>
+                    <!--/.new-cars-img-->
+                  </div>
+                  <div class="col-md-5 col-sm-12">
+                    <div class="new-cars-txt">
+                      <h2>
+                        <a href="#">Mercedes AMG GT <span></span></a>
+                      </h2>
+                      <p></p>
+                      <p class="new-cars-para2">
+                        A Powerful coupe with a great design and a powerful
+                        engine.
+                      </p>
+                      <button
+                        class="welcome-btn new-cars-btn"
+                        onclick="window.location.href='#'"
+                      >
+                        view details
+                      </button>
+                    </div>
+                    <!--/.new-cars-txt-->
+                  </div>
+                  <!--/.col-->
+                </div>
+                <!--/.row-->
+              </div>
+              <!--/.single-new-cars-item-->
+            </div>
+            <!--/.new-cars-item-->
+            <div class="new-cars-item">
+              <div class="single-new-cars-item">
+                <div class="row">
+                  <div class="col-md-7 col-sm-12">
+                    <div class="new-cars-img">
+                      <img
+                        src="../static/assets/images/new-cars-model/ncm2.png"
+                        alt="img"
+                      />
+                    </div>
+                    <!--/.new-cars-img-->
+                  </div>
+                  <div class="col-md-5 col-sm-12">
+                    <div class="new-cars-txt">
+                      <h2><a href="#">Audi R8</a></h2>
+                      <p></p>
+                      <p class="new-cars-para2">
+                        A legendary car with an amazing design and a powerful
+                        engine.
+                      </p>
+                      <button
+                        class="welcome-btn new-cars-btn"
+                        onclick="window.location.href='#'"
+                      >
+                        view details
+                      </button>
+                    </div>
+                    <!--/.new-cars-txt-->
+                  </div>
+                  <!--/.col-->
+                </div>
+                <!--/.row-->
+              </div>
+              <!--/.single-new-cars-item-->
+            </div>
+            <!--/.new-cars-item-->
+            <div class="new-cars-item">
+              <div class="single-new-cars-item">
+                <div class="row">
+                  <div class="col-md-7 col-sm-12">
+                    <div class="new-cars-img">
+                      <img
+                        src="../static/assets/images/new-cars-model/ncm3.png"
+                        alt="img"
+                      />
+                    </div>
+                    <!--/.new-cars-img-->
+                  </div>
+                  <div class="col-md-5 col-sm-12">
+                    <div class="new-cars-txt">
+                      <h2><a href="#">BMW M4 Competition</a></h2>
+                      <p></p>
+                      <p class="new-cars-para2">
+                        A Luxurious car with a powerful engine and a great
+                        design.
+                      </p>
+                      <button
+                        class="welcome-btn new-cars-btn"
+                        onclick="window.location.href='#'"
+                      >
+                        view details
+                      </button>
+                    </div>
+                    <!--/.new-cars-txt-->
+                  </div>
+                  <!--/.col-->
+                </div>
+                <!--/.row-->
+              </div>
+              <!--/.single-new-cars-item-->
+            </div>
+            <!--/.new-cars-item-->
+          </div>
+          <!--/#new-cars-carousel-->
+        </div>
+        <!--/.new-cars-content-->
+      </div>
+      <!--/.container-->
+    </section>
+    <!--/.new-cars-->
+    <!--new-cars end -->
 
-													<option value="10000">$10,000.00</option><!-- /.option-->
+    <!--service start -->
+    <section id="service" class="service">
+      <div class="container">
+        <div class="service-content">
+          <div class="row">
+            <div class="col-md-4 col-sm-6">
+              <div class="single-service-item">
+                <div class="single-service-icon">
+                  <i class="flaticon-car"></i>
+                </div>
+                <h2>
+                  <a href="#">largest dealership <span> of</span> car</a>
+                </h2>
+                <p></p>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+              <div class="single-service-item">
+                <div class="single-service-icon">
+                  <i class="flaticon-car-repair"></i>
+                </div>
+                <h2><a href="#">unlimited repair warrenty</a></h2>
+                <p></p>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+              <div class="single-service-item">
+                <div class="single-service-icon">
+                  <i class="flaticon-car-1"></i>
+                </div>
+                <h2><a href="#">insurence support</a></h2>
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/.container-->
+    </section>
+    <!--/.service-->
+    <!--service end-->
 
-													<option value="$50000.00">$50,000.00</option><!-- /.option-->
-													<option value="$100000.00">$100,000.00</option><!-- /.option-->
+    <!--featured-cars start -->
+    <section id="featured-cars" class="featured-cars">
+      <div class="container">
+        <div class="section-header">
+          <p>checkout <span>the</span> featured cars</p>
+          <h2>featured cars</h2>
+        </div>
+        <!--/.section-header-->
+        <div class="featured-cars-content" id="featured-cars-content">
+          <!-- JavaScript will dynamically add rows here -->
+        </div>
+      </div>
+      <!--/.container-->
+    </section>
+    <!--/.featured-cars-->
+    <!--featured-cars end -->
 
-												</select><!-- /.select-->
-											</div><!-- /.model-select-icon -->
-										</div>
-									</div>
-									<div class="col-md-2 col-sm-12">
-										<div class="single-model-search text-center">
-											<button class="welcome-btn model-search-btn" onclick="window.location.href='#search'">
-												search
-											</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
+    <!-- clients-say start -->
+    <section id="clients-say" class="clients-say">
+      <div class="container">
+        <div class="section-header">
+          <h2>What Our Clients Say</h2>
+        </div>
+        <!--/.section-header-->
+        <div class="row">
+          <div class="owl-carousel testimonial-carousel">
+            {% for comment in comments %}
+            <div class="col-sm-3 col-xs-12">
+              <div class="single-testimonial-box">
+                <div class="testimonial-description">
+                  <div class="testimonial-info">
+                    <div class="testimonial-img">
+                      <img
+                        src="../static/images/profile_picture.webp"
+                        alt="image of client's person"
+                      />
+                    </div>
+                    <!--/.testimonial-img-->
+                  </div>
+                  <!--/.testimonial-info-->
+                  <div class="testimonial-comment">
+                    <p>{{comment.content}}</p>
+                  </div>
+                  <!--/.testimonial-comment-->
+                  <div class="testimonial-person">
+                    <h2>
+                      <a href="#"
+                        >{{comment.first_name}} {{comment.last_name}}</a
+                      >
+                    </h2>
+                  </div>
+                  <!--/.testimonial-person-->
+                </div>
+                <!--/.testimonial-description-->
+              </div>
+              <!--/.single-testimonial-box-->
+            </div>
+            <!--/.col-->
+            {% endfor %}
+          </div>
+          <!--/.testimonial-carousel-->
+        </div>
+        <!--/.row-->
+      </div>
+      <!--/.container-->
+    </section>
+    <!--/.clients-say-->
+    <!-- clients-say end -->
 
-		</section>
-		
-		<!-- SpinKit Loading Spinner -->
-		<div id="loading-icon" class="sk-chase" style="display: none;">
-			<div class="sk-chase-dot"></div>
-			<div class="sk-chase-dot"></div>
-			<div class="sk-chase-dot"></div>
-			<div class="sk-chase-dot"></div>
-			<div class="sk-chase-dot"></div>
-			<div class="sk-chase-dot"></div>
-		</div>
+    <!--brand strat -->
+    <section id="brand" class="brand">
+      <div class="container">
+        <div class="brand-area">
+          <div class="owl-carousel owl-theme brand-item">
+            <div class="item">
+              <a href="#">
+                <img
+                  src="../static/assets/images/brand/br1.png"
+                  alt="brand-image"
+                />
+              </a>
+            </div>
+            <!--/.item-->
+            <div class="item">
+              <a href="#">
+                <img
+                  src="../static/assets/images/brand/br2.png"
+                  alt="brand-image"
+                />
+              </a>
+            </div>
+            <!--/.item-->
+            <div class="item">
+              <a href="#">
+                <img
+                  src="../static/assets/images/brand/br3.png"
+                  alt="brand-image"
+                />
+              </a>
+            </div>
+            <!--/.item-->
+            <div class="item">
+              <a href="#">
+                <img
+                  src="../static/assets/images/brand/br4.png"
+                  alt="brand-image"
+                />
+              </a>
+            </div>
+            <!--/.item-->
 
-		<!--welcome-hero end -->
-		
-		<!--search start -->
-		{% if cars %}
-		<section class="featured-cars">
-			<div class="container">
-				<div class="section-header">
-					<p>checkout <span>the</span> Search cars</p>
-					<h2>Search cars</h2>
-				</div><!--/.section-header-->
-				<div class="featured-cars-content">
-					<div class="row">
-						{% for car in cars %}
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
-								<div class="featured-img-box">
-									<div class="featured-cars-img">
-										<img src="../static/images/{{car.image}}" alt="cars">
-									</div>
-									<div class="featured-model-info">
-										<p>
-											Year: {{car.year}}
-											<span class="featured-mi-span"> {{car.km}} KM</span> 
-											<span class="featured-hp-span"> {{car.condition}}</span>
-										</p>
-									</div>
-								</div>
-								<div class="featured-cars-txt">
-									<!-- Trigger the modal on click -->
-									<h2><a href="javascript:void(0);" onclick="openModal('{{ car.car_id }}')">{{car.brand}} {{car.model}} {{car.style}}</a></h2>
-									<h3>${{car.price}}</h3>
-									<p>
-										{{car.DESCRIPTION}}
-									</p>
-								</div>
-							</div>
-						</div>
-						{% endfor %}
-					</div>
-				</div>
-			</div><!--/.container-->
-		</section>
-		{% endif %}
-		
-		<!--new-cars start -->
-		<section id="new-cars" class="new-cars">
-			<div class="container">
-				<div class="section-header">
-					<p>checkout <span>the</span> latest cars</p>
-					<h2>newest cars</h2>
-				</div><!--/.section-header-->
-				<div class="new-cars-content">
-					<div class="owl-carousel owl-theme" id="new-cars-carousel">
-						<div class="new-cars-item">
-							<div class="single-new-cars-item">
-								<div class="row">
-									<div class="col-md-7 col-sm-12">
-										<div class="new-cars-img">
-											<img src="../static/assets/images/new-cars-model/ncm2.jpg" alt="img"/>
-										</div><!--/.new-cars-img-->
-									</div>
-									<div class="col-md-5 col-sm-12">
-										<div class="new-cars-txt">
-											<h2><a href="#">Mercedes AMG GT  <span></span></a></h2>
-											<p>
-												
-											</p>
-											<p class="new-cars-para2">
-												A Powerful coupe with a great design and a powerful engine.
-											</p>
-											<button class="welcome-btn new-cars-btn" onclick="window.location.href='#'">
-												view details
-											</button>
-										</div><!--/.new-cars-txt-->	
-									</div><!--/.col-->
-								</div><!--/.row-->
-							</div><!--/.single-new-cars-item-->
-						</div><!--/.new-cars-item-->
-						<div class="new-cars-item">
-							<div class="single-new-cars-item">
-								<div class="row">
-									<div class="col-md-7 col-sm-12">
-										<div class="new-cars-img">
-											<img src="../static/assets/images/new-cars-model/ncm2.png" alt="img"/>
-										</div><!--/.new-cars-img-->
-									</div>
-									<div class="col-md-5 col-sm-12">
-										<div class="new-cars-txt">
-											<h2><a href="#">Audi R8</a></h2>
-											<p>
-												
-											</p>
-											<p class="new-cars-para2">
-												A legendary car with an amazing design and a powerful engine.
-											</p>
-											<button class="welcome-btn new-cars-btn" onclick="window.location.href='#'">
-												view details
-											</button>
-										</div><!--/.new-cars-txt-->	
-									</div><!--/.col-->
-								</div><!--/.row-->	
-							</div><!--/.single-new-cars-item-->
-						</div><!--/.new-cars-item-->
-						<div class="new-cars-item">
-							<div class="single-new-cars-item">
-								<div class="row">
-									<div class="col-md-7 col-sm-12">
-										<div class="new-cars-img">
-											<img src="../static/assets/images/new-cars-model/ncm3.png" alt="img"/>
-										</div><!--/.new-cars-img-->
-									</div>
-									<div class="col-md-5 col-sm-12">
-										<div class="new-cars-txt">
-											<h2><a href="#">BMW M4 Competition</a></h2>
-											<p>
-												
-											</p>
-											<p class="new-cars-para2">
-												A Luxurious car with a powerful engine and a great design.
-											</p>
-											<button class="welcome-btn new-cars-btn" onclick="window.location.href='#'">
-												view details
-											</button>
-										</div><!--/.new-cars-txt-->	
-									</div><!--/.col-->
-								</div><!--/.row-->
-							</div><!--/.single-new-cars-item-->
-						</div><!--/.new-cars-item-->
-					</div><!--/#new-cars-carousel-->
-				</div><!--/.new-cars-content-->
-			</div><!--/.container-->
+            <div class="item">
+              <a href="#">
+                <img
+                  src="../static/assets/images/brand/br5.png"
+                  alt="brand-image"
+                />
+              </a>
+            </div>
+            <!--/.item-->
 
-		</section><!--/.new-cars-->
-		<!--new-cars end -->
+            <div class="item">
+              <a href="#">
+                <img
+                  src="../static/assets/images/brand/br6.png"
+                  alt="brand-image"
+                />
+              </a>
+            </div>
+            <!--/.item-->
+          </div>
+          <!--/.owl-carousel-->
+        </div>
+        <!--/.clients-area-->
+      </div>
+      <!--/.container-->
+    </section>
+    <!--/brand-->
+    <!--brand end -->
 
-		<!--service start -->
-		<section id="service" class="service">
-			<div class="container">
-				<div class="service-content">
-					<div class="row">
-						<div class="col-md-4 col-sm-6">
-							<div class="single-service-item">
-								<div class="single-service-icon">
-									<i class="flaticon-car"></i>
-								</div>
-								<h2><a href="#">largest dealership <span> of</span> car</a></h2>
-								<p>
-									  
-								</p>
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-6">
-							<div class="single-service-item">
-								<div class="single-service-icon">
-									<i class="flaticon-car-repair"></i>
-								</div>
-								<h2><a href="#">unlimited repair warrenty</a></h2>
-								<p>
-									 
-								</p>
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-6">
-							<div class="single-service-item">
-								<div class="single-service-icon">
-									<i class="flaticon-car-1"></i>
-								</div>
-								<h2><a href="#">insurence support</a></h2>
-								<p>
-									
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div><!--/.container-->
+    <!--blog start -->
+    <section id="blog" class="blog"></section>
+    <!--/.blog-->
+    <!--blog end -->
 
-		</section><!--/.service-->
-		<!--service end-->
-		
+    <!-- chatbot start -->
+    <!-- Toggle Button -->
+    <button id="toggle-button"></button>
+    <!-- Chatbot Interface -->
+    <div id="chatbot">
+      <button id="close" class="close-button" onclick="hideChatbot()">×</button>
+      <!-- Close button -->
+      <h3>Chat with Pafi 🐣</h3>
+      <ul id="messages"></ul>
+      <div>
+        <input
+          id="myMessage"
+          autocomplete="off"
+          placeholder="Type your message..."
+        />
+        <button id="send-button" onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+    <!-- chatbot end -->
 
-		<!--featured-cars start -->
-		<section id="featured-cars" class="featured-cars">
-			<div class="container">
-				<div class="section-header">
-					<p>checkout <span>the</span> featured cars</p>
-					<h2>featured cars</h2>
-				</div><!--/.section-header-->
-				<div class="featured-cars-content" id="featured-cars-content">
-					<!-- JavaScript will dynamically add rows here -->
-				</div>
-			</div><!--/.container-->
-		</section><!--/.featured-cars-->
-		<!--featured-cars end -->
+    <!--contact start-->
+    <footer id="contact" class="contact">
+      <div class="container">
+        <div class="footer-top">
+          <div class="row">
+            <div class="col-md-3 col-sm-6">
+              <div class="single-footer-widget">
+                <div class="footer-logo">
+                  <a href="/">CarTrade</a>
+                </div>
+                <p>
+                  The reasone of our success is our customer satisfaction. Don't
+                  hesitate to contact us.
+                </p>
+                <div class="footer-contact">
+                  <p>info@CarTrade.com</p>
+                  <p>+1 (885) 2563154554</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 col-sm-6">
+              <div class="single-footer-widget">
+                <h2>about devloon</h2>
+                <ul>
+                  <li><a href="#">about us</a></li>
+                  <li><a href="#">career</a></li>
+                  <li>
+                    <a href="#">terms <span> of service</span></a>
+                  </li>
+                  <li><a href="#">privacy policy</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-3 col-xs-12">
+              <div class="single-footer-widget">
+                <h2>top brands</h2>
+                <div class="row">
+                  <div class="col-md-7 col-xs-6">
+                    <ul>
+                      <li><a href="#">BMW</a></li>
+                      <li><a href="#">lamborghini</a></li>
+                      <li><a href="#">camaro</a></li>
+                      <li><a href="#">audi</a></li>
+                      <li><a href="#">infiniti</a></li>
+                      <li><a href="#">nissan</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-md-5 col-xs-6">
+                    <ul>
+                      <li><a href="#">ferrari</a></li>
+                      <li><a href="#">porsche</a></li>
+                      <li><a href="#">land rover</a></li>
+                      <li><a href="#">aston martin</a></li>
+                      <li><a href="#">mersedes</a></li>
+                      <li><a href="#">opel</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-offset-1 col-md-3 col-sm-6">
+              <div class="single-footer-widget">
+                <h2>news letter</h2>
+                <div class="footer-newsletter">
+                  <p>Register now to get updates on promotions and coupons.</p>
+                </div>
+                {% if user["user_id"] > 0 %}
+                <form action="/add/comment" method="post">
+                  <div class="hm-foot-email">
+                    <div class="foot-email-box">
+                      <input
+                        type="text"
+                        name="content"
+                        class="form-control"
+                        placeholder="Add Comment"
+                      />
+                    </div>
+                    <!--/.foot-email-box-->
+                    <div class="foot-email-subscribe">
+                      <button type="submit">
+                        <i class="fa fa-arrow-right"></i>
+                      </button>
+                    </div>
+                    <!--/.foot-email-icon-->
+                  </div>
+                </form>
+                {% endif %}
+                <!--/.hm-foot-email-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-copyright">
+          <div class="row">
+            <div class="col-sm-6"></div>
+            <div class="col-sm-6">
+              <div class="footer-social">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-instagram"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                <a href="#"><i class="fa fa-behance"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/.footer-copyright-->
+      </div>
+      <!--/.container-->
 
-		<!-- clients-say start -->
-		<section id="clients-say" class="clients-say">
-			<div class="container">
-				<div class="section-header">
-					<h2>What Our Clients Say</h2>
-				</div><!--/.section-header-->
-				<div class="row">
-					<div class="owl-carousel testimonial-carousel">
-						{% for comment in comments %}
-						<div class="col-sm-3 col-xs-12">
-							<div class="single-testimonial-box">
-								<div class="testimonial-description">
-									<div class="testimonial-info">
-										<div class="testimonial-img">
-											<img src="../static/images/profile_picture.webp" alt="image of client's person" />
-										</div><!--/.testimonial-img-->
-									</div><!--/.testimonial-info-->
-									<div class="testimonial-comment">
-										<p>{{comment.content}}</p>
-									</div><!--/.testimonial-comment-->
-									<div class="testimonial-person">
-										<h2><a href="#">{{comment.first_name}} {{comment.last_name}}</a></h2>
-									</div><!--/.testimonial-person-->
-								</div><!--/.testimonial-description-->
-							</div><!--/.single-testimonial-box-->
-						</div><!--/.col-->
-						{% endfor %}
-					</div><!--/.testimonial-carousel-->
-				</div><!--/.row-->
-			</div><!--/.container-->
-		</section><!--/.clients-say-->
-		<!-- clients-say end -->
+      <div id="scroll-Top">
+        <div class="return-to-top">
+          <i
+            class="fa fa-angle-up"
+            id="scroll-top"
+            data-toggle="tooltip"
+            data-placement="top"
+            title=""
+            data-original-title="Back to Top"
+            aria-hidden="true"
+          ></i>
+        </div>
+      </div>
+      <!--/.scroll-Top-->
+    </footer>
+    <!--/.contact-->
+    <!--contact end-->
 
+    <!-- Include all js compiled plugins (below), or include individual files as needed -->
 
-		<!--brand strat -->
-		<section id="brand"  class="brand">
-			<div class="container">
-				<div class="brand-area">
-					<div class="owl-carousel owl-theme brand-item">
-						<div class="item">
-							<a href="#">
-								<img src="../static/assets/images/brand/br1.png" alt="brand-image" />
-							</a>
-						</div><!--/.item-->
-						<div class="item">
-							<a href="#">
-								<img src="../static/assets/images/brand/br2.png" alt="brand-image" />
-							</a>
-						</div><!--/.item-->
-						<div class="item">
-							<a href="#">
-								<img src="../static/assets/images/brand/br3.png" alt="brand-image" />
-							</a>
-						</div><!--/.item-->
-						<div class="item">
-							<a href="#">
-								<img src="../static/assets/images/brand/br4.png" alt="brand-image" />
-							</a>
-						</div><!--/.item-->
+    <script src="../static/assets/js/jquery.js"></script>
 
-						<div class="item">
-							<a href="#">
-								<img src="../static/assets/images/brand/br5.png" alt="brand-image" />
-							</a>
-						</div><!--/.item-->
+    <!--modernizr.min.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 
-						<div class="item">
-							<a href="#">
-								<img src="../static/assets/images/brand/br6.png" alt="brand-image" />
-							</a>
-						</div><!--/.item-->
-					</div><!--/.owl-carousel-->
-				</div><!--/.clients-area-->
+    <!--bootstrap.min.js-->
+    <script src="../static/assets/js/bootstrap.min.js"></script>
 
-			</div><!--/.container-->
+    <!-- bootsnav js -->
+    <script src="../static/assets/js/bootsnav.js"></script>
 
-		</section><!--/brand-->	
-		<!--brand end -->
+    <!--owl.carousel.js-->
+    <script src="../static/assets/js/owl.carousel.min.js"></script>
 
-		<!--blog start -->
-		<section id="blog" class="blog"></section><!--/.blog-->
-		<!--blog end -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 
-		<!-- chatbot start -->
-		<!-- Toggle Button -->
-		<button id="toggle-button"></button>
-		<!-- Chatbot Interface -->
-		<div id="chatbot">
-			<button id="close" class="close-button" onclick="hideChatbot()">×</button> <!-- Close button -->
-			<h3>Chat with Pafi 🐣</h3>
-			<ul id="messages"></ul>
-			<div>
-				<input id="myMessage" autocomplete="off" placeholder="Type your message...">
-				<button id="send-button" onclick="sendMessage()">Send</button>
-			</div>
-		</div>
-		<!-- chatbot end -->
+    <!--Custom JS-->
+    <script src="../static/assets/js/custom.js"></script>
 
-		<!-- Display Modal Start-->
-		<div id="carModal" class="modal">
-			<div class="modal-content">
-			  <span class="close" onclick="closeModal()">&times;</span>
-			  <div id="carousel-images"></div>
-			  <div id="car-details"></div>
-			  <form action="/rent_car" method="POST">
-				<input type="hidden" id="car_id" name="car_id">
-				<input type="date" name="start_date" required>
-				<input type="time" name="start_time" required>
-				<input type="date" name="end_date" required>
-				<input type="time" name="end_time" required>
-				<button type="submit">Rent</button>
-			  </form>
-			</div>
-		  </div>
-		  
-		  <!-- Display Modal End-->		  
+    <script>
+      const cars = {{ all_cars | tojson | safe }};
+      const carsContainer = document.getElementById('featured-cars-content');
 
-		<!--contact start-->
-		<footer id="contact"  class="contact">
-			<div class="container">
-				<div class="footer-top">
-					<div class="row">
-						<div class="col-md-3 col-sm-6">
-							<div class="single-footer-widget">
-								<div class="footer-logo">
-									<a href="/">CarTrade</a>
-								</div>
-								<p>
-									The reasone of our success is our customer satisfaction.
-									Don't hesitate to contact us.
-								</p>
-								<div class="footer-contact">
-									<p>info@CarTrade.com</p>
-									<p>+1 (885) 2563154554</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-2 col-sm-6">
-							<div class="single-footer-widget">
-								<h2>about devloon</h2>
-								<ul>
-									<li><a href="#">about us</a></li>
-									<li><a href="#">career</a></li>
-									<li><a href="#">terms <span> of service</span></a></li>
-									<li><a href="#">privacy policy</a></li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-md-3 col-xs-12">
-							<div class="single-footer-widget">
-								<h2>top brands</h2>
-								<div class="row">
-									<div class="col-md-7 col-xs-6">
-										<ul>
-											<li><a href="#">BMW</a></li>
-											<li><a href="#">lamborghini</a></li>
-											<li><a href="#">camaro</a></li>
-											<li><a href="#">audi</a></li>
-											<li><a href="#">infiniti</a></li>
-											<li><a href="#">nissan</a></li>
-										</ul>
-									</div>
-									<div class="col-md-5 col-xs-6">
-										<ul>
-											<li><a href="#">ferrari</a></li>
-											<li><a href="#">porsche</a></li>
-											<li><a href="#">land rover</a></li>
-											<li><a href="#">aston martin</a></li>
-											<li><a href="#">mersedes</a></li>
-											<li><a href="#">opel</a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-offset-1 col-md-3 col-sm-6">
-							<div class="single-footer-widget">
-								<h2>news letter</h2>
-								<div class="footer-newsletter">
-									<p>
-										Register now to get updates on promotions and coupons.
-									</p>
-								</div>
-								{% if user["user_id"] > 0 %}
-								<form action="/add/comment" method="post">
-									<div class="hm-foot-email">
-										<div class="foot-email-box">
-											<input type="text" name="content" class="form-control" placeholder="Add Comment">
-										</div><!--/.foot-email-box-->
-										<div class="foot-email-subscribe">
-											<button type="submit"><i class="fa fa-arrow-right"></i></button>
-										</div><!--/.foot-email-icon-->
-									</div>
-								</form>
-								{% endif %}
-								<!--/.hm-foot-email-->
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="footer-copyright">
-					<div class="row">
-						<div class="col-sm-6">
-						</div>
-						<div class="col-sm-6">
-							<div class="footer-social">
-								<a href="#"><i class="fa fa-facebook"></i></a>	
-								<a href="#"><i class="fa fa-instagram"></i></a>
-								<a href="#"><i class="fa fa-linkedin"></i></a>
-								<a href="#"><i class="fa fa-pinterest-p"></i></a>
-								<a href="#"><i class="fa fa-behance"></i></a>	
-							</div>
-						</div>
-					</div>
-				</div><!--/.footer-copyright-->
-			</div><!--/.container-->
+      cars.forEach((car, index) => {
+      	// Create a new row every 4 cars
+      	if (index % 4 === 0) {
+      		const row = document.createElement('div');
+      		row.className = 'row';
+      		carsContainer.appendChild(row);
+      	}
 
-			<div id="scroll-Top">
-				<div class="return-to-top">
-					<i class="fa fa-angle-up " id="scroll-top" data-toggle="tooltip" data-placement="top" title="" data-original-title="Back to Top" aria-hidden="true"></i>
-				</div>
-				
-			</div><!--/.scroll-Top-->
-			
-        </footer><!--/.contact-->
-		<!--contact end-->
+      	const carDiv = document.createElement('div');
+      	carDiv.className = 'col-lg-3 col-md-4 col-sm-6';
+      	carDiv.innerHTML = `
+      		<div class="single-featured-cars">
+      			<div class="featured-img-box">
+      				<div class="featured-cars-img">
+      					<img src="../static/images/${car.image}" alt="cars">
+      				</div>
+      				<div class="featured-model-info">
+      					<p>
+      						Year: ${car.year}
+      						<span class="featured-mi-span"> ${car.km} KM</span>
+      						<span class="featured-hp-span"> ${car.condition}</span>
+      					</p>
+      				</div>
+      			</div>
+      			<div class="featured-cars-txt">
+      				<h2><a href="/display_car/${car.car_id}">${car.brand} ${car.model} ${car.style}</a></h2>
+      				<h3>$${car.price}</h3>
+      				<p>${car.DESCRIPTION}</p>
+      			</div>
+      		</div>
+      	`;
+      	carsContainer.lastChild.appendChild(carDiv); // Add car to the last row
+      });
+    </script>
 
+    <script>
+      const socket = io();
+      const chatbot = $("#chatbot");
+      const toggleButton = $("#toggle-button");
+      let inactivityTimeout;
 
-		<!-- Include all js compiled plugins (below), or include individual files as needed -->
+      // Function to hide the chatbot
+      function hideChatbot() {
+        chatbot.css("left", "-320px");
+      }
 
-		<script src="../static/assets/js/jquery.js"></script>
-        
-        <!--modernizr.min.js-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-		
-		<!--bootstrap.min.js-->
-        <script src="../static/assets/js/bootstrap.min.js"></script>
-		
-		<!-- bootsnav js -->
-		<script src="../static/assets/js/bootsnav.js"></script>
+      // Function to show the chatbot
+      function showChatbot() {
+        chatbot.css("left", "0px");
+        resetInactivityTimer();
+      }
 
-		<!--owl.carousel.js-->
-        <script src="../static/assets/js/owl.carousel.min.js"></script>
+      // Function to send a message
+      function sendMessage() {
+        const msg = $("#myMessage").val();
+        if (msg.trim()) {
+          $("#messages").append($("<li>").text(msg).addClass("user-message"));
+          $("#myMessage").val("");
+          socket.send(msg);
+          $("#messages").scrollTop($("#messages")[0].scrollHeight); // Auto-scroll to the bottom
+        }
+      }
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+      // Listen for messages from the server
+      socket.on("message", function (msg) {
+        $("#messages").append($("<li>").text(msg).addClass("bot-message"));
+        $("#messages").scrollTop($("#messages")[0].scrollHeight); // Auto-scroll to the bottom
+      });
 
+      // Toggle chatbot visibility
+      toggleButton.click(function () {
+        if (chatbot.css("left") === "0px") {
+          hideChatbot();
+        } else {
+          showChatbot();
+        }
+      });
 
-        <!--Custom JS-->
-        <script src="../static/assets/js/custom.js"></script>
-		
-		
+      // Reset inactivity timer
+      function resetInactivityTimer() {
+        clearTimeout(inactivityTimeout);
+        inactivityTimeout = setTimeout(hideChatbot, 5000); // Hide after 5 seconds of inactivity
+      }
 
-		<script>
-			const cars = {{ all_cars | tojson | safe }};
-			const carsContainer = document.getElementById('featured-cars-content');
-			
-			cars.forEach((car, index) => {
-				// Create a new row every 4 cars
-				if (index % 4 === 0) {
-					const row = document.createElement('div');
-					row.className = 'row';
-					carsContainer.appendChild(row);
-				}
-		
-				const carDiv = document.createElement('div');
-				carDiv.className = 'col-lg-3 col-md-4 col-sm-6';
-				carDiv.innerHTML = `
-					<div class="single-featured-cars">
-						<div class="featured-img-box">
-							<div class="featured-cars-img">
-								<img src="../static/images/${car.image}" alt="cars">
-							</div>
-							<div class="featured-model-info">
-								<p>
-									Year: ${car.year}
-									<span class="featured-mi-span"> ${car.km} KM</span> 
-									<span class="featured-hp-span"> ${car.condition}</span>
-								</p>
-							</div>
-						</div>
-						<div class="featured-cars-txt">
-							<h2><a href="/display_car/${car.car_id}">${car.brand} ${car.model} ${car.style}</a></h2>
-							<h3>$${car.price}</h3>
-							<p>${car.DESCRIPTION}</p>
-						</div>
-					</div>
-				`;
-				carsContainer.lastChild.appendChild(carDiv); // Add car to the last row
-			});
-		</script>
+      // Event listeners to reset the timer on user interaction
+      $(document).on("mousemove click keypress", resetInactivityTimer);
 
-		<script>
-			const socket = io();
-			const chatbot = $('#chatbot');
-			const toggleButton = $('#toggle-button');
-			let inactivityTimeout;
-	
-			// Function to hide the chatbot
-			function hideChatbot() {
-				chatbot.css('left', '-320px');
-			}
-	
-			// Function to show the chatbot
-			function showChatbot() {
-				chatbot.css('left', '0px');
-				resetInactivityTimer();
-			}
-	
-			// Function to send a message
-			function sendMessage(){
-				const msg = $('#myMessage').val();
-				if (msg.trim()) {
-					$('#messages').append($('<li>').text(msg).addClass('user-message'));
-					$('#myMessage').val('');
-					socket.send(msg);
-					$('#messages').scrollTop($('#messages')[0].scrollHeight); // Auto-scroll to the bottom
-				}
-			}
-	
-			// Listen for messages from the server
-			socket.on('message', function(msg){
-				$('#messages').append($('<li>').text(msg).addClass('bot-message'));
-				$('#messages').scrollTop($('#messages')[0].scrollHeight); // Auto-scroll to the bottom
-			});
-	
-			// Toggle chatbot visibility
-			toggleButton.click(function(){
-				if (chatbot.css('left') === '0px') {
-					hideChatbot();
-				} else {
-					showChatbot();
-				}
-			});
-	
-			// Reset inactivity timer
-			function resetInactivityTimer() {
-				clearTimeout(inactivityTimeout);
-				inactivityTimeout = setTimeout(hideChatbot, 5000); // Hide after 5 seconds of inactivity
-			}
-	
-			// Event listeners to reset the timer on user interaction
-			$(document).on('mousemove click keypress', resetInactivityTimer);
-	
-			// Hide the chatbot if clicked outside
-			$(document).click(function(event) {
-				if (!$(event.target).closest('#chatbot, #toggle-button').length) {
-					hideChatbot();
-				}
-			});
-		</script>
+      // Hide the chatbot if clicked outside
+      $(document).click(function (event) {
+        if (!$(event.target).closest("#chatbot, #toggle-button").length) {
+          hideChatbot();
+        }
+      });
+    </script>
 
-		<script>
-			function showLoadingIcon() {
-				document.getElementById('loading-icon').style.display = 'flex';
-			}
-		</script>
-        
-    </body>
-	
+    <script>
+      function showLoadingIcon() {
+        document.getElementById("loading-icon").style.display = "flex";
+      }
+    </script>
+  </body>
 </html>

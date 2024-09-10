@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<!--
+ @license
+ Copyright 2024 Google LLC. All Rights Reserved.
+ SPDX-License-Identifier: Apache-2.0
+-->
+<html>
+  <head>
+    <title>CarTrade</title>
+
+    <!-- For favicon png -->
+    <link
+      rel="shortcut icon"
+      type="image/icon"
+      href="../static/../static/assets/logo/favicon.png"
+    />
+
+    <!--font-awesome.min.css-->
+    <link rel="stylesheet" href="../static/assets/css/font-awesome.min.css" />
+
+    <!--linear icon css-->
+    <link rel="stylesheet" href="../static/assets/css/linearicons.css" />
+
+    <!--flaticon.css-->
+    <link rel="stylesheet" href="../static/assets/css/flaticon.css" />
+
+    <!--animate.css-->
+    <link rel="stylesheet" href="../static/assets/css/animate.css" />
+
+    <!--owl.carousel.css-->
+    <link rel="stylesheet" href="../static/assets/css/owl.carousel.min.css" />
+    <link
+      rel="stylesheet"
+      href="../static/assets/css/owl.theme.default.min.css"
+    />
+
+    <!--bootstrap.min.css-->
+    <link rel="stylesheet" href="../static/assets/css/bootstrap.min.css" />
+
+    <!-- bootsnav -->
+    <link rel="stylesheet" href="../static/assets/css/bootsnav.css" />
+
+    <!--style.css-->
+    <link rel="stylesheet" href="../static/assets/css/style.css" />
+
+    <!--responsive.css-->
+    <link rel="stylesheet" href="../static/assets/css/responsive.css" />
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script async src="//jsfiddle.net/u43pj69g/embed/"></script>
+  </head>
+  <link rel="stylesheet" href="../static/css/rent.css" />
+  <body>
+    <!--
+     This loads helper components from the Extended Component Library,
+     https://github.com/googlemaps/extended-component-library.
+     Please note unpkg.com is unaffiliated with Google Maps Platform.
+    -->
+    <script
+      type="module"
+      src="https://unpkg.com/@googlemaps/extended-component-library@0.6"
+    ></script>
+    <gmpx-api-loader
+      key="AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg"
+      solution-channel="GMP_CCS_autocomplete_v3"
+    >
+    </gmpx-api-loader>
+    <gmp-map
+      id="map"
+      center="40.749933,-73.98633"
+      zoom="13"
+      map-id="DEMO_MAP_ID"
+    >
+      <div
+        slot="control-block-start-inline-start"
+        class="pac-card"
+        id="pac-card"
+      >
+        <section id="new-cars" class="new-cars" style="padding-top: 0">
+          <div class="container">
+            <div id="title">You Can Rent The Car</div>
+          </div>
+          <!--/.container-->
+          <form action="/rent/car" method="post">
+            <div class="">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="model-search-content">
+                    <div class="row">
+                      <div class="col-md-offset-1 col-md-2 col-sm-12">
+                        <div class="single-model-search">
+                          <h2>Pick-up Location</h2>
+                          <div class="model-select-icon">
+                            <gmpx-place-picker
+                              id="pickup_location"
+                              for-map="map"
+                              class="form-control"
+                            ></gmpx-place-picker>
+                          </div>
+                          <!-- /.model-select-icon -->
+                        </div>
+                        <div class="single-model-search">
+                          <h2>Drop-off Location</h2>
+                          <div class="model-select-icon">
+                            <gmpx-place-picker
+                              id="dropoff_location"
+                              for-map="map"
+                              class="form-control"
+                            ></gmpx-place-picker>
+                          </div>
+                          <!-- /.model-select-icon -->
+                        </div>
+                      </div>
+                      <div class="col-md-offset-1 col-md-2 col-sm-12">
+                        <div class="single-model-search">
+                          <h2>Pick-up Date</h2>
+                          <div class="model-select-icon">
+                            <input
+                              type="date"
+                              name="pickup_date"
+                              class="form-control"
+                            />
+                          </div>
+                          <!-- /.model-select-icon -->
+                        </div>
+                        <div class="single-model-search">
+                          <h2>Drop-off Date</h2>
+                          <div class="model-select-icon">
+                            <input
+                              type="date"
+                              name="dropoff_date"
+                              class="form-control"
+                            />
+                          </div>
+                          <!-- /.model-select-icon -->
+                        </div>
+                      </div>
+                      <div class="col-md-offset-1 col-md-2 col-sm-12">
+                        <div class="single-model-search">
+                          <h2>Pick-up Time</h2>
+                          <div class="model-select-icon">
+                            <input
+                              type="time"
+                              name="pickup_time"
+                              class="form-control"
+                            />
+                          </div>
+                          <!-- /.model-select-icon -->
+                        </div>
+                        <div class="single-model-search">
+                          <h2>Drop-off Time</h2>
+                          <div class="model-select-icon">
+                            <input
+                              type="time"
+                              name="dropoff_time"
+                              class="form-control"
+                            />
+                          </div>
+                          <!-- /.model-select-icon -->
+                        </div>
+                      </div>
+                      <div class="col-md-2 col-sm-12">
+                        <div class="single-model-search text-center">
+                          <button
+                            class="welcome-btn model-search-btn"
+                            type="submit"
+                          >
+                            Rent
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.row -->
+                  </div>
+                  <!-- /.model-search-content -->
+                </div>
+                <!-- /.col-md-12 -->
+              </div>
+              <!-- /.row -->
+            </div>
+          </form>
+        </section>
+      </div>
+      <gmp-advanced-marker id="marker"></gmp-advanced-marker>
+    </gmp-map>
+    <div id="infowindow-content">
+      <span id="place-name" class="title" style="font-weight: bold"></span
+      ><br />
+      <span id="place-address"></span>
+    </div>
+    <script src="../static/js/car_modal.js"></script>
+  </body>
+</html>

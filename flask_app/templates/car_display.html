@@ -1,104 +1,488 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Basic Modal Test</title>
+<html class="no-js" lang="en">
+  <head>
+    <!-- meta data -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Find your dream car with CarTrade. Browse featured and new cars, and get in touch with us for more details."
+    />
+    <meta
+      name="keywords"
+      content="cars, car dealership, new cars, used cars, car sales"
+    />
+    <!--font-family-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Rufina:400,700"
+      rel="stylesheet"
+    />
+
+    <!-- title of site -->
+    <title>CarTrade</title>
+
+    <!-- For favicon png -->
+    <link
+      rel="shortcut icon"
+      type="image/icon"
+      href="../static/../static/assets/logo/favicon.png"
+    />
+
+    <!--font-awesome.min.css-->
+    <link rel="stylesheet" href="../static/assets/css/font-awesome.min.css" />
+
+    <!--linear icon css-->
+    <link rel="stylesheet" href="../static/assets/css/linearicons.css" />
+
+    <!--flaticon.css-->
+    <link rel="stylesheet" href="../static/assets/css/flaticon.css" />
+
+    <!--animate.css-->
+    <link rel="stylesheet" href="../static/assets/css/animate.css" />
+
+    <!--owl.carousel.css-->
+    <link rel="stylesheet" href="../static/assets/css/owl.carousel.min.css" />
+    <link
+      rel="stylesheet"
+      href="../static/assets/css/owl.theme.default.min.css"
+    />
+
+    <!--bootstrap.min.css-->
+    <link rel="stylesheet" href="../static/assets/css/bootstrap.min.css" />
+
+    <!-- bootsnav -->
+    <link rel="stylesheet" href="../static/assets/css/bootsnav.css" />
+
+    <!--style.css-->
+    <link rel="stylesheet" href="../static/assets/css/style.css" />
+
+    <!--responsive.css-->
+    <link rel="stylesheet" href="../static/assets/css/responsive.css" />
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../static/js/car_modal.js"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"
+      defer
+    ></script>
+  </head>
+
   <style>
-    .modal {
-      display: none; /* Hidden by default */
-      position: fixed;
-      z-index: 1000; /* Sit on top */
-      left: 0;
-      top: 0;
+    .form-control {
       width: 100%;
-      height: 100%;
-      overflow: auto; /* Enable scroll if needed */
-      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      padding: 10px;
+      margin-bottom: 10px;
     }
-    
-    .modal-content {
-      background-color: #fefefe;
-      margin: 15% auto; /* 15% from top and centered */
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%; /* Could be more or less, depending on screen size */
-      position: relative;
-    }
-    
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
-    
-    .close:hover,
-    .close:focus {
-      color: black;
-      text-decoration: none;
+
+    .welcome-btn {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
       cursor: pointer;
     }
-    
-  </style>
-</head>
-<body>
 
-  <h2><a href="javascript:void(0);" onclick="openModal()">Open Modal</a></h2>
-
-  <div id="carModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <div id="carousel-images"></div>
-      <div id="car-details"></div>
-      <form action="/rent_car" method="POST">
-        <input type="hidden" id="car_id" name="car_id">
-        <input type="date" name="start_date" required>
-        <input type="time" name="start_time" required>
-        <input type="date" name="end_date" required>
-        <input type="time" name="end_time" required>
-        <button type="submit">Rent</button>
-      </form>
-    </div>
-  </div>
-
-  <script>
-    function openModal(carId) {
-      carId = 32
-      console.log('Opening modal for carId:', carId); // Debugging line
-    
-      fetch(`/get_car_details/${carId}`)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(data => {
-          console.log('Received data:', data); // Debugging line
-    
-          if (data.images) {
-            document.getElementById('carousel-images').innerHTML = data.images.map(img => `<img src="../static/images/${img}" alt="Car Image">`).join('');
-          } else {
-            document.getElementById('carousel-images').innerHTML = '<p>No images available.</p>';
-          }
-          
-          document.getElementById('car-details').innerHTML = `
-            <h2>${data.brand} ${data.model}</h2>
-            <p><strong>Year:</strong> ${data.year}</p>
-            <p><strong>Price:</strong> $${data.price}</p>
-            <p><strong>Mileage:</strong> ${data.km} Km</p>
-            <p><strong>Description:</strong> ${data.description}</p>`;
-          
-          document.getElementById('car_id').value = data.id;
-    
-          // Display the modal
-          document.getElementById('carModal').style.display = 'block';
-        })
-        .catch(error => console.error('Error:', error));
+    .welcome-btn:hover {
+      background-color: #45a049;
     }
-    
-  </script>
-  
-</body>
+  </style>
+
+  <body>
+    <!-- SpinKit Loading Spinner -->
+    <div id="loading-icon" class="sk-chase" style="display: none">
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+    </div>
+
+    <!--welcome-hero end -->
+
+    <!--new-cars start -->
+    <section id="new-cars" class="new-cars">
+      <div class="container">
+        <div class="new-cars-content">
+          <div class="owl-carousel owl-theme" id="new-cars-carousel">
+            {% for image in images %}
+            <div class="new-cars-item">
+              <div class="single-new-cars-item">
+                <div class="row">
+                  <div class="col-md-7 col-sm-12">
+                    <div class="new-cars-img">
+                      <img
+                        src="../static/images/{{image.image_url}}"
+                        alt="img"
+                      />
+                    </div>
+                    <!--/.new-cars-img-->
+                  </div>
+                  <!--/.col-->
+                </div>
+                <!--/.row-->
+              </div>
+              <!--/.single-new-cars-item-->
+            </div>
+            {% endfor %}
+          </div>
+          <!--/#new-cars-carousel-->
+        </div>
+        <!--/.new-cars-content-->
+      </div>
+      <!--/.container-->
+      <form action="/rent/car" method="post">
+        <div class="">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="model-search-content">
+                <div class="row">
+                  <div class="col-md-offset-1 col-md-2 col-sm-12">
+                    <div class="single-model-search">
+                      <h2>Pick-up Location</h2>
+                      <div class="model-select-icon">
+                        <input
+                          id="pickup_location"
+                          type="text"
+                          name="pickup_location"
+                          placeholder="Pick-up Location"
+                          class="form-control"
+                        />
+                      </div>
+                      <!-- /.model-select-icon -->
+                    </div>
+                    <div class="single-model-search">
+                      <h2>Drop-off Location</h2>
+                      <div class="model-select-icon">
+                        <input
+                          id="dropoff_location"
+                          type="text"
+                          name="dropoff_location"
+                          placeholder="Drop-off Location"
+                          class="form-control"
+                        />
+                      </div>
+                      <!-- /.model-select-icon -->
+                    </div>
+                  </div>
+                  <div class="col-md-offset-1 col-md-2 col-sm-12">
+                    <div class="single-model-search">
+                      <h2>Pick-up Date</h2>
+                      <div class="model-select-icon">
+                        <input
+                          type="date"
+                          name="pickup_date"
+                          class="form-control"
+                        />
+                      </div>
+                      <!-- /.model-select-icon -->
+                    </div>
+                    <div class="single-model-search">
+                      <h2>Drop-off Date</h2>
+                      <div class="model-select-icon">
+                        <input
+                          type="date"
+                          name="dropoff_date"
+                          class="form-control"
+                        />
+                      </div>
+                      <!-- /.model-select-icon -->
+                    </div>
+                  </div>
+                  <div class="col-md-offset-1 col-md-2 col-sm-12">
+                    <div class="single-model-search">
+                      <h2>Pick-up Time</h2>
+                      <div class="model-select-icon">
+                        <input
+                          type="time"
+                          name="pickup_time"
+                          class="form-control"
+                        />
+                      </div>
+                      <!-- /.model-select-icon -->
+                    </div>
+                    <div class="single-model-search">
+                      <h2>Drop-off Time</h2>
+                      <div class="model-select-icon">
+                        <input
+                          type="time"
+                          name="dropoff_time"
+                          class="form-control"
+                        />
+                      </div>
+                      <!-- /.model-select-icon -->
+                    </div>
+                  </div>
+                  <div class="col-md-2 col-sm-12">
+                    <div class="single-model-search text-center">
+                      <button
+                        class="welcome-btn model-search-btn"
+                        type="submit"
+                      >
+                        Search
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.row -->
+              </div>
+              <!-- /.model-search-content -->
+            </div>
+            <!-- /.col-md-12 -->
+          </div>
+          <!-- /.row -->
+        </div>
+      </form>
+    </section>
+    <!--/.new-cars-->
+    <!--new-cars end -->
+
+    <!--blog start -->
+    <section id="blog" class="blog"></section>
+    <!--/.blog-->
+    <!--blog end -->
+
+    <!-- chatbot start -->
+    <!-- Toggle Button -->
+    <button id="toggle-button"></button>
+    <!-- Chatbot Interface -->
+    <div id="chatbot">
+      <button id="close" class="close-button" onclick="hideChatbot()">×</button>
+      <!-- Close button -->
+      <h3>Chat with Pafi 🐣</h3>
+      <ul id="messages"></ul>
+      <div>
+        <input
+          id="myMessage"
+          autocomplete="off"
+          placeholder="Type your message..."
+        />
+        <button id="send-button" onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+    <!-- chatbot end -->
+
+    <!--contact start-->
+    <footer id="contact" class="contact">
+      <div class="container">
+        <div class="footer-top">
+          <div class="row">
+            <div class="col-md-3 col-sm-6">
+              <div class="single-footer-widget">
+                <div class="footer-logo">
+                  <a href="/">CarTrade</a>
+                </div>
+                <p>
+                  The reasone of our success is our customer satisfaction. Don't
+                  hesitate to contact us.
+                </p>
+                <div class="footer-contact">
+                  <p>info@CarTrade.com</p>
+                  <p>+1 (885) 2563154554</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 col-sm-6">
+              <div class="single-footer-widget">
+                <h2>about devloon</h2>
+                <ul>
+                  <li><a href="#">about us</a></li>
+                  <li><a href="#">career</a></li>
+                  <li>
+                    <a href="#">terms <span> of service</span></a>
+                  </li>
+                  <li><a href="#">privacy policy</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-3 col-xs-12">
+              <div class="single-footer-widget">
+                <h2>top brands</h2>
+                <div class="row">
+                  <div class="col-md-7 col-xs-6">
+                    <ul>
+                      <li><a href="#">BMW</a></li>
+                      <li><a href="#">lamborghini</a></li>
+                      <li><a href="#">camaro</a></li>
+                      <li><a href="#">audi</a></li>
+                      <li><a href="#">infiniti</a></li>
+                      <li><a href="#">nissan</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-md-5 col-xs-6">
+                    <ul>
+                      <li><a href="#">ferrari</a></li>
+                      <li><a href="#">porsche</a></li>
+                      <li><a href="#">land rover</a></li>
+                      <li><a href="#">aston martin</a></li>
+                      <li><a href="#">mersedes</a></li>
+                      <li><a href="#">opel</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-offset-1 col-md-3 col-sm-6">
+              <div class="single-footer-widget">
+                <h2>news letter</h2>
+                <div class="footer-newsletter">
+                  <p>Register now to get updates on promotions and coupons.</p>
+                </div>
+                {% if user["user_id"] > 0 %}
+                <form action="/add/comment" method="post">
+                  <div class="hm-foot-email">
+                    <div class="foot-email-box">
+                      <input
+                        type="text"
+                        name="content"
+                        class="form-control"
+                        placeholder="Add Comment"
+                      />
+                    </div>
+                    <!--/.foot-email-box-->
+                    <div class="foot-email-subscribe">
+                      <button type="submit">
+                        <i class="fa fa-arrow-right"></i>
+                      </button>
+                    </div>
+                    <!--/.foot-email-icon-->
+                  </div>
+                </form>
+                {% endif %}
+                <!--/.hm-foot-email-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-copyright">
+          <div class="row">
+            <div class="col-sm-6"></div>
+            <div class="col-sm-6">
+              <div class="footer-social">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-instagram"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                <a href="#"><i class="fa fa-behance"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/.footer-copyright-->
+      </div>
+      <!--/.container-->
+
+      <div id="scroll-Top">
+        <div class="return-to-top">
+          <i
+            class="fa fa-angle-up"
+            id="scroll-top"
+            data-toggle="tooltip"
+            data-placement="top"
+            title=""
+            data-original-title="Back to Top"
+            aria-hidden="true"
+          ></i>
+        </div>
+      </div>
+      <!--/.scroll-Top-->
+    </footer>
+    <!--/.contact-->
+    <!--contact end-->
+
+    <!-- Include all js compiled plugins (below), or include individual files as needed -->
+
+    <script src="../static/assets/js/jquery.js"></script>
+
+    <!--modernizr.min.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+    <!--bootstrap.min.js-->
+    <script src="../static/assets/js/bootstrap.min.js"></script>
+
+    <!-- bootsnav js -->
+    <script src="../static/assets/js/bootsnav.js"></script>
+
+    <!--owl.carousel.js-->
+    <script src="../static/assets/js/owl.carousel.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+
+    <!--Custom JS-->
+    <script src="../static/assets/js/custom.js"></script>
+
+    <script>
+      const socket = io();
+      const chatbot = $("#chatbot");
+      const toggleButton = $("#toggle-button");
+      let inactivityTimeout;
+
+      // Function to hide the chatbot
+      function hideChatbot() {
+        chatbot.css("left", "-320px");
+      }
+
+      // Function to show the chatbot
+      function showChatbot() {
+        chatbot.css("left", "0px");
+        resetInactivityTimer();
+      }
+
+      // Function to send a message
+      function sendMessage() {
+        const msg = $("#myMessage").val();
+        if (msg.trim()) {
+          $("#messages").append($("<li>").text(msg).addClass("user-message"));
+          $("#myMessage").val("");
+          socket.send(msg);
+          $("#messages").scrollTop($("#messages")[0].scrollHeight); // Auto-scroll to the bottom
+        }
+      }
+
+      // Listen for messages from the server
+      socket.on("message", function (msg) {
+        $("#messages").append($("<li>").text(msg).addClass("bot-message"));
+        $("#messages").scrollTop($("#messages")[0].scrollHeight); // Auto-scroll to the bottom
+      });
+
+      // Toggle chatbot visibility
+      toggleButton.click(function () {
+        if (chatbot.css("left") === "0px") {
+          hideChatbot();
+        } else {
+          showChatbot();
+        }
+      });
+
+      // Reset inactivity timer
+      function resetInactivityTimer() {
+        clearTimeout(inactivityTimeout);
+        inactivityTimeout = setTimeout(hideChatbot, 5000); // Hide after 5 seconds of inactivity
+      }
+
+      // Event listeners to reset the timer on user interaction
+      $(document).on("mousemove click keypress", resetInactivityTimer);
+
+      // Hide the chatbot if clicked outside
+      $(document).click(function (event) {
+        if (!$(event.target).closest("#chatbot, #toggle-button").length) {
+          hideChatbot();
+        }
+      });
+    </script>
+
+    <script>
+      function showLoadingIcon() {
+        document.getElementById("loading-icon").style.display = "flex";
+      }
+    </script>
+    <script src="../static/js/car_modal.js"></script>
+  </body>
 </html>

@@ -75,4 +75,3 @@ class User:
             flash("Email already in use", "register")
             return False
         return True
-    
