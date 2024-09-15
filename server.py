@@ -7,7 +7,8 @@ from flask_app.controllers import (
     dashboard,
     admin,
     cars,
-    comments
+    clients,
+    payments
 )
 
 load_dotenv()

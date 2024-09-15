@@ -1,11 +1,7 @@
-import os
-
-from dotenv import load_dotenv
-
+from flask_app.config.load_db import load_db
 from flask_app.config.mysqlconnection import connectToMySQL
 
-load_dotenv()
-DB_NAME = os.getenv("DB_NAME")
+DB_NAME = load_db()
 
 
 class Car_Image:

@@ -1,16 +1,15 @@
-import os
 import re
 from flask_bcrypt import Bcrypt
 
-from dotenv import load_dotenv
 from flask import flash
 from flask_app import app
 
+from flask_app.config.load_db import load_db
 from flask_app.config.mysqlconnection import connectToMySQL
+from flask_app.helpers.email_check import check_email
 
 bcrypt = Bcrypt(app)
-load_dotenv()
-DB_NAME = os.getenv("DB_NAME")
+DB_NAME = load_db()
 
 class User:
     def __init__(self, data):
@@ -20,6 +19,8 @@ class User:
         self.last_name = data['last_name']
         self.email = data['email']
         self.password = data['password']
+        self.role = data['role']
+        self.nr_tel = data['nr_tel']
         
         
     @classmethod
@@ -31,6 +32,7 @@ class User:
         return False
     
     
+    # todo: is not correct
     @classmethod
     def add_user(cls, data):
         query = "INSERT INTO users (first_name, last_name, email, password) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s);"
@@ -55,8 +57,7 @@ class User:
     
     @staticmethod
     def validate_registration(data):
-        email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-        if not re.match(email_pattern, data['email']):
+        if not check_email(data['email']):
             flash("Invalid email address", "register")
             return False
         if len(data['first_name']) < 2:

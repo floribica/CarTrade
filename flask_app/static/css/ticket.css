@@ -1,0 +1,337 @@
+/* Base styles */
+body {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  color: #322d28;
+}
+
+header.top-bar h1 {
+  font-family: "Montserrat", sans-serif;
+}
+
+main {
+  margin-top: 4rem;
+  min-height: calc(100vh - 107px);
+}
+main .inner-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+table.invoice {
+  background: #fff;
+}
+table.invoice .num {
+  font-weight: 200;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 0.8em;
+}
+table.invoice tr, table.invoice td {
+  background: #fff;
+  text-align: left;
+  font-weight: 400;
+  color: #322d28;
+}
+table.invoice tr.header td img {
+  max-width: 300px;
+}
+table.invoice tr.header td h2 {
+  text-align: right;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 200;
+  font-size: 2rem;
+  color: #1779ba;
+}
+table.invoice tr.intro td:nth-child(2) {
+  text-align: right;
+}
+table.invoice tr.details > td {
+  padding-top: 4rem;
+  padding-bottom: 0;
+}
+table.invoice tr.details td.id, table.invoice tr.details td.qty, table.invoice tr.details th.id, table.invoice tr.details th.qty {
+  text-align: center;
+}
+table.invoice tr.details td:last-child, table.invoice tr.details th:last-child {
+  text-align: right;
+}
+table.invoice tr.details table thead, table.invoice tr.details table tbody {
+  position: relative;
+}
+table.invoice tr.details table thead:after, table.invoice tr.details table tbody:after {
+  content: "";
+  height: 1px;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  margin-top: -1px;
+  background: #c8c3be;
+}
+table.invoice tr.totals td {
+  padding-top: 0;
+}
+table.invoice tr.totals table tr td {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+table.invoice tr.totals table tr td:nth-child(1) {
+  font-weight: 500;
+}
+table.invoice tr.totals table tr td:nth-child(2) {
+  text-align: right;
+  font-weight: 200;
+}
+table.invoice tr.totals table tr:nth-last-child(2) td {
+  padding-bottom: 0.5em;
+}
+table.invoice tr.totals table tr:nth-last-child(2) td:last-child {
+  position: relative;
+}
+table.invoice tr.totals table tr:nth-last-child(2) td:last-child:after {
+  content: "";
+  height: 4px;
+  width: 110%;
+  border-top: 1px solid #1779ba;
+  border-bottom: 1px solid #1779ba;
+  position: relative;
+  right: 0;
+  bottom: -0.575rem;
+  display: block;
+}
+table.invoice tr.totals table tr.total td {
+  font-size: 1.2em;
+  padding-top: 0.5em;
+  font-weight: 700;
+}
+table.invoice tr.totals table tr.total td:last-child {
+  font-weight: 700;
+}
+
+.additional-info h5 {
+  font-size: 0.8em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #1779ba;
+}
+
+/* Button styles */
+.Btn {
+  width: 130px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(15, 15, 15);
+  border: none;
+  color: white;
+  font-weight: 600;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.103);
+  position: relative;
+  overflow: hidden;
+  transition-duration: .3s;
+}
+
+.svgIcon {
+  width: 16px;
+}
+
+.svgIcon path {
+  fill: white;
+}
+
+.Btn::before {
+  width: 130px;
+  height: 130px;
+  position: absolute;
+  content: "";
+  background-color: white;
+  border-radius: 50%;
+  left: -100%;
+  top: 0;
+  transition-duration: .3s;
+  mix-blend-mode: difference;
+}
+
+.Btn:hover::before {
+  transition-duration: .3s;
+  transform: translate(100%,-50%);
+  border-radius: 0;
+}
+
+.Btn:active {
+  transform: translate(5px,5px);
+  transition-duration: .3s;
+}
+
+/* Payment options */
+.payment--options {
+  width: calc(100% - 40px);
+  display: grid;
+  grid-template-columns: 33% 34% 33%;
+  gap: 20px;
+  padding: 10px;
+}
+
+.payment--options a {
+  height: 55px;
+  background: #F2F2F2;
+  border-radius: 11px;
+  padding: 0;
+  border: 0;
+  outline: none;
+}
+
+.payment--options a svg {
+  height: 18px;
+}
+
+.payment--options a:last-child svg {
+  height: 22px;
+}
+
+/* UI button styles */
+.ui-btn {
+  --btn-default-bg: rgb(41, 41, 41);
+  --btn-padding: 15px 20px;
+  --btn-hover-bg: rgb(51, 51, 51);
+  --btn-transition: .3s;
+  --btn-letter-spacing: .1rem;
+  --btn-animation-duration: 1.2s;
+  --btn-shadow-color: rgba(0, 0, 0, 0.137);
+  --btn-shadow: 0 2px 10px 0 var(--btn-shadow-color);
+  --hover-btn-color: #FAC921;
+  --default-btn-color: #fff;
+  --font-size: 16px;
+  --font-weight: 600;
+  --font-family: Menlo,Roboto Mono,monospace;
+}
+
+.ui-btn {
+  box-sizing: border-box;
+  padding: var(--btn-padding);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--default-btn-color);
+  font: var(--font-weight) var(--font-size) var(--font-family);
+  background: var(--btn-default-bg);
+  border: none;
+  cursor: pointer;
+  transition: var(--btn-transition);
+  overflow: hidden;
+  box-shadow: var(--btn-shadow);
+}
+
+.ui-btn span {
+  letter-spacing: var(--btn-letter-spacing);
+  transition: var(--btn-transition);
+  box-sizing: border-box;
+  position: relative;
+  background: inherit;
+}
+
+.ui-btn span::before {
+  box-sizing: border-box;
+  position: absolute;
+  content: "";
+  background: inherit;
+}
+
+.ui-btn:hover, .ui-btn:focus {
+  background: var(--btn-hover-bg);
+}
+
+.ui-btn:hover span, .ui-btn:focus span {
+  color: var(--hover-btn-color);
+}
+
+.ui-btn:hover span::before, .ui-btn:focus span::before {
+  animation: chitchat linear both var(--btn-animation-duration);
+}
+
+@keyframes chitchat {
+  /* Keyframes defined here */
+}
+
+.payment_group{
+  display: flex;
+  justify-content: space-around;
+  font-weight: bolder;
+}
+
+#payment_title{
+  font-size: 1.5rem;
+  font-weight: bolder;
+  margin-bottom: 1rem;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1200px) {
+  .payment--options {
+    grid-template-columns: 50% 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .payment--options {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  table.invoice {
+    width: 100%;
+  }
+
+  table.invoice tr.header td h2 {
+    font-size: 1.5rem;
+  }
+
+  table.invoice tr.details td, table.invoice tr.details th {
+    font-size: 0.9em;
+  }
+
+  .Btn {
+    width: 100px;
+    height: 35px;
+  }
+
+  .Btn .svgIcon {
+    width: 14px;
+  }
+
+  .additional-info h5 {
+    font-size: 0.7em;
+  }
+
+  #payment_title {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .Btn {
+    width: 80px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+
+  table.invoice tr.header td h2 {
+    font-size: 1.2rem;
+  }
+
+  table.invoice tr.details td, table.invoice tr.details th {
+    font-size: 0.8em;
+  }
+
+  .additional-info h5 {
+    font-size: 0.6em;
+  }
+
+  #payment_title {
+    font-size: 1rem;
+  }
+}

@@ -15,19 +15,18 @@ def process_message(msg):
         'year': '[Pafi 🐣]=> What year are you looking for?',
         'brand': '[Pafi 🐣]=> What brand are you looking for?',
         'style': '[Pafi 🐣]=> What style are you looking for?',
-        'condition': '[Pafi 🐣]=> What condition are you looking for?',
+        'conditions': '[Pafi 🐣]=> What conditions are you looking for?',
         'model': '[Pafi 🐣]=> What model are you looking for?',
         'km': '[Pafi 🐣]=> How many kilometers are you looking for?',
         'thanks': '[Pafi 🐣]=> You are welcome! Is there anything else for today?',
-        'help': '[Pafi 🐣]=> I can help you find cars based on price, year, brand, style, condition, model, km, and description. What would you like to search for?',
+        'help': '[Pafi 🐣]=> I can help you find cars based on price, year, brand, style, conditions, model, km, and description. What would you like to search for?',
         'please': '[Pafi 🐣]=> Please provide more details.',
         'pleasure': '[Pafi 🐣]=> The pleasure is mine! How can I help you today?',
         'name': '[Pafi 🐣]=> My name is Pafi. How can I help you today?',
         'car': '[Pafi   🐣]=> What car would you like to search for?',
         'test drive': '[Pafi 🐣]=> Ready for a test drive? I can help schedule it at a time that works for you.',
         'new or used': '[Pafi 🐣]=> Are you looking for a new or used car?',
-
-
+        'no': '[Pafi 🐣]=> Okay! Can I help with something else?'
     }
 
     # Check for price-related queries
@@ -58,12 +57,12 @@ def process_message(msg):
         count = Car.count_cars_by_style(style)
         return f'[Pafi 🐣]=> We have {count} car(s) of the style {style}.'
 
-    # Check for condition-related queries
-    condition_match = re.search(r'\bcondition\s+(\w+)\b', msg)
-    if condition_match:
-        condition = condition_match.group(1).capitalize()
-        count = Car.count_cars_by_condition(condition)
-        return f'[Pafi 🐣]=> We have {count} car(s) in {condition} condition.'
+    # Check for conditions-related queries
+    conditions_match = re.search(r'\bconditions\s+(\w+)\b', msg)
+    if conditions_match:
+        conditions = conditions_match.group(1).capitalize()
+        count = Car.count_cars_by_conditions(conditions)
+        return f'[Pafi 🐣]=> We have {count} car(s) in {conditions} conditions.'
 
     # Check for model-related queries
     model_match = re.search(r'\bmodel\s+(\w+)\b', msg)

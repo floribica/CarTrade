@@ -111,12 +111,12 @@
                   data-in="fadeInDown"
                   data-out="fadeOutUp"
                 >
-                  <li class="scroll active"><a href="/">home</a></li>
+                  <li class="scroll active"><a href="#top">home</a></li>
+                  <li class="scroll"><a href="#new-cars">new cars</a></li>
                   <li class="scroll"><a href="#service">service</a></li>
                   <li class="scroll">
                     <a href="#featured-cars">featured cars</a>
                   </li>
-                  <li class="scroll"><a href="#new-cars">new cars</a></li>
                   <li class="scroll"><a href="#brand">brands</a></li>
                   <li class="scroll"><a href="#contact">contact</a></li>
                   {% if user["user_id"] > 0%}
@@ -141,7 +141,7 @@
       <!-- /.top-area-->
       <!-- top-area End -->
 
-      <div class="container">
+      <div class="container" id="top">
         <div class="welcome-hero-txt">
           <h2>drive your dream today</h2>
           <button class="welcome-btn" onclick="window.location.href='#'">
@@ -176,34 +176,30 @@
                     <div class="single-model-search">
                       <h2>body style</h2>
                       <div class="model-select-icon">
-                        <select class="form-control" name="style">
-                          <option value="default">default</option>
-                          <!-- /.option-->
-                          <option value="sedan">sedan</option>
-                          <!-- /.option-->
-                          <option value="van">van</option>
-                          <!-- /.option-->
-                          <option value="roadster">roadster</option>
-                          <!-- /.option--></select
-                        ><!-- /.select-->
+                        <input
+                          type="text"
+                          name="style"
+                          id="style"
+                          class="form-control"
+                          placeholder="Default"
+                        />
+                        <!-- /.select-->
                       </div>
                       <!-- /.model-select-icon -->
                     </div>
                   </div>
                   <div class="col-md-offset-1 col-md-2 col-sm-12">
                     <div class="single-model-search">
-                      <h2>select make</h2>
+                      <h2>select brand</h2>
                       <div class="model-select-icon">
                         <select class="form-control" name="brand">
                           <option value="default">default</option>
                           <!-- /.option-->
-
-                          <option value="toyota">toyota</option>
-                          <!-- /.option-->
-
-                          <option value="holden">holden</option>
-                          <!-- /.option-->
-                          <option value="Mercedes Benz">Mercedes Benz.</option>
+                          {% for brand in brands%}
+                          <option value="{{brand.brand}}">
+                            {{brand.brand}}
+                          </option>
+                          {%endfor%}
                           <!-- /.option--></select
                         ><!-- /.select-->
                       </div>
@@ -211,16 +207,16 @@
                     </div>
                     <div id="search"></div>
                     <div class="single-model-search">
-                      <h2>car condition</h2>
+                      <h2>car conditions</h2>
                       <div class="model-select-icon">
-                        <select class="form-control" name="condition">
+                        <select class="form-control" name="conditions">
                           <option value="default">default</option>
                           <!-- /.option-->
 
-                          <option value="new">New</option>
+                          <option value="New">New</option>
                           <!-- /.option-->
 
-                          <option value="used">Used</option>
+                          <option value="Used">Used</option>
                           <!-- /.option--></select
                         ><!-- /.select-->
                       </div>
@@ -231,36 +227,28 @@
                     <div class="single-model-search">
                       <h2>select model</h2>
                       <div class="model-select-icon">
-                        <select class="form-control" name="model">
-                          <option value="default">default</option>
-                          <!-- /.option-->
-
-                          <option value="kia-rio">kia-rio</option>
-                          <!-- /.option-->
-
-                          <option value="mitsubishi">mitsubishi</option>
-                          <!-- /.option-->
-                          <option value="ford">ford</option>
-                          <!-- /.option--></select
-                        ><!-- /.select-->
+                        <input
+                          type="text"
+                          name="model"
+                          id="model"
+                          class="form-control"
+                          placeholder="Default"
+                        />
+                        <!-- /.select-->
                       </div>
                       <!-- /.model-select-icon -->
                     </div>
                     <div class="single-model-search">
-                      <h2>select price</h2>
+                      <h2>select rent price</h2>
                       <div class="model-select-icon">
-                        <select class="form-control" name="price">
-                          <option value="default">default</option>
-                          <!-- /.option-->
-
-                          <option value="10000">$10,000.00</option>
-                          <!-- /.option-->
-
-                          <option value="$50000.00">$50,000.00</option>
-                          <!-- /.option-->
-                          <option value="$100000.00">$100,000.00</option>
-                          <!-- /.option--></select
-                        ><!-- /.select-->
+                        <input
+                          type="text"
+                          name="rent_price"
+                          id="rent_price"
+                          class="form-control"
+                          placeholder="Default"
+                        />
+                        <!-- /.select-->
                       </div>
                       <!-- /.model-select-icon -->
                     </div>
@@ -296,7 +284,6 @@
     <!--welcome-hero end -->
 
     <!--search start -->
-    {% if cars %}
     <section class="featured-cars">
       <div class="container">
         <div class="section-header">
@@ -306,7 +293,7 @@
         <!--/.section-header-->
         <div class="featured-cars-content">
           <div class="row">
-            {% for car in cars %}
+            {% if cars %} {% for car in cars %}
             <div class="col-lg-3 col-md-4 col-sm-6">
               <div class="single-featured-cars">
                 <div class="featured-img-box">
@@ -317,31 +304,33 @@
                     <p>
                       Year: {{car.year}}
                       <span class="featured-mi-span"> {{car.km}} KM</span>
-                      <span class="featured-hp-span"> {{car.condition}}</span>
+                      <span class="featured-hp-span"> {{car.conditions}}</span>
                     </p>
                   </div>
                 </div>
                 <div class="featured-cars-txt">
                   <!-- Trigger the modal on click -->
                   <h2>
-                    <a
-                      href="javascript:void(0);"
-                      onclick="openModal('{{ car.car_id }}')"
+                    <a href="/display_car/{{car.car_id}}"
                       >{{car.brand}} {{car.model}} {{car.style}}</a
                     >
                   </h2>
-                  <h3>${{car.price}}</h3>
-                  <p>{{car.DESCRIPTION}}</p>
+                  <h3>${{car.rent_price}}</h3>
+                  <p>{{car.description}}</p>
                 </div>
               </div>
             </div>
-            {% endfor %}
+            {% endfor %} {% else %}
+            <div class="col-lg-3 col-md-4 col-sm-6" style="display: contents">
+              <h3 style="text-align: center">No cars found</h3>
+            </div>
+            {% endif %}
           </div>
         </div>
       </div>
       <!--/.container-->
     </section>
-    {% endif %}
+    <!-- search end-->
 
     <!--new-cars start -->
     <section id="new-cars" class="new-cars">
@@ -532,58 +521,6 @@
     <!--/.featured-cars-->
     <!--featured-cars end -->
 
-    <!-- clients-say start -->
-    <section id="clients-say" class="clients-say">
-      <div class="container">
-        <div class="section-header">
-          <h2>What Our Clients Say</h2>
-        </div>
-        <!--/.section-header-->
-        <div class="row">
-          <div class="owl-carousel testimonial-carousel">
-            {% for comment in comments %}
-            <div class="col-sm-3 col-xs-12">
-              <div class="single-testimonial-box">
-                <div class="testimonial-description">
-                  <div class="testimonial-info">
-                    <div class="testimonial-img">
-                      <img
-                        src="../static/images/profile_picture.webp"
-                        alt="image of client's person"
-                      />
-                    </div>
-                    <!--/.testimonial-img-->
-                  </div>
-                  <!--/.testimonial-info-->
-                  <div class="testimonial-comment">
-                    <p>{{comment.content}}</p>
-                  </div>
-                  <!--/.testimonial-comment-->
-                  <div class="testimonial-person">
-                    <h2>
-                      <a href="#"
-                        >{{comment.first_name}} {{comment.last_name}}</a
-                      >
-                    </h2>
-                  </div>
-                  <!--/.testimonial-person-->
-                </div>
-                <!--/.testimonial-description-->
-              </div>
-              <!--/.single-testimonial-box-->
-            </div>
-            <!--/.col-->
-            {% endfor %}
-          </div>
-          <!--/.testimonial-carousel-->
-        </div>
-        <!--/.row-->
-      </div>
-      <!--/.container-->
-    </section>
-    <!--/.clients-say-->
-    <!-- clients-say end -->
-
     <!--brand strat -->
     <section id="brand" class="brand">
       <div class="container">
@@ -654,11 +591,6 @@
     </section>
     <!--/brand-->
     <!--brand end -->
-
-    <!--blog start -->
-    <section id="blog" class="blog"></section>
-    <!--/.blog-->
-    <!--blog end -->
 
     <!-- chatbot start -->
     <!-- Toggle Button -->
@@ -853,14 +785,14 @@
       					<p>
       						Year: ${car.year}
       						<span class="featured-mi-span"> ${car.km} KM</span>
-      						<span class="featured-hp-span"> ${car.condition}</span>
+      						<span class="featured-hp-span"> ${car.conditions}</span>
       					</p>
       				</div>
       			</div>
       			<div class="featured-cars-txt">
       				<h2><a href="/display_car/${car.car_id}">${car.brand} ${car.model} ${car.style}</a></h2>
-      				<h3>$${car.price}</h3>
-      				<p>${car.DESCRIPTION}</p>
+      				<h3>$${car.rent_price}</h3>
+      				<p>${car.description}</p>
       			</div>
       		</div>
       	`;

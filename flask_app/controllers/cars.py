@@ -8,7 +8,6 @@ from werkzeug.utils import secure_filename
 
 from flask_app.models.car import Car
 from flask_app.models.car_image import Car_Image
-from flask_app.models.comment import Comment
 
 
 load_dotenv()
@@ -22,13 +21,19 @@ def show_cars():
     data = {
         "year": request.form.get("year"),
         "brand": request.form.get("brand"),
-        "style": request.form.get("style"),
-        "condition": request.form.get("condition"),
-        "model": request.form.get("model"),
-        "price": request.form.get("price")
+        "style": "%" + request.form.get("style") + "%",
+        "conditions": request.form.get("conditions"),
+        "model": "%" + request.form.get("model") + "%",
+        "rent_price": request.form.get("rent_price")
     }
     if data["year"] == "":
         data["year"] = "default"
+    if data["model"] == "%%":
+        data["model"] = "default"
+    if data["style"] == "%%":
+        data["style"] = "default"
+    if data["rent_price"] == "":
+        data["rent_price"] = "default"
 
     for key, value in data.items():
         if value == "default":
@@ -50,14 +55,14 @@ def show_cars():
         user = session['user']
 
     all_cars = Car.get_all_cars()
-    comments = Comment.get_comments()
-
+    brands = Car.get_all_cars_brand()
+    
     return render_template(
         'index.html',
         cars=search_results,
         user=user,
         all_cars=all_cars,
-        comments=comments
+        brands=brands
     )
 
 
@@ -77,13 +82,12 @@ def add_new_car():
         "year": request.form.get("year"),
         "brand": request.form.get("brand"),
         "style": request.form.get("style"),
-        "condition": request.form.get("condition"),
+        "conditions": request.form.get("conditions"),
         "model": request.form.get("model"),
         "price": request.form.get("price"),
         "km": request.form.get("km"),
         "description": request.form.get("description")
     }
-    breakpoint()
     if 'image' in request.files:
         image = request.files['image']
 

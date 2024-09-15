@@ -61,40 +61,86 @@
 
     <!--style.css-->
     <link rel="stylesheet" href="../static/assets/css/style.css" />
+    <link rel="stylesheet" href="../static/css/rent.css" />
 
     <!--responsive.css-->
     <link rel="stylesheet" href="../static/assets/css/responsive.css" />
+    <link rel="stylesheet" href="../static/css/client.css" />
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../static/js/car_modal.js"></script>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"
       defer
     ></script>
   </head>
 
-  <style>
-    .form-control {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
-    }
-
-    .welcome-btn {
-      background-color: #4caf50;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-    }
-
-    .welcome-btn:hover {
-      background-color: #45a049;
-    }
-  </style>
-
   <body>
+    <!--welcome-hero start -->
+    <section id="home" class="welcome-hero">
+      <!-- top-area Start -->
+      <div class="top-area">
+        <div class="header-area">
+          <!-- Start Navigation -->
+          <nav
+            class="navbar navbar-default bootsnav navbar-sticky navbar-scrollspy"
+            data-minus-value-desktop="70"
+            data-minus-value-mobile="55"
+            data-speed="1000"
+            style="background-color: black"
+          >
+            <div class="container">
+              <!-- Start Header Navigation -->
+              <div class="navbar-header">
+                <button
+                  type="button"
+                  class="navbar-toggle"
+                  data-toggle="collapse"
+                  data-target="#navbar-menu"
+                >
+                  <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="/">CarTrade<span></span></a>
+              </div>
+              <!--/.navbar-header-->
+              <!-- End Header Navigation -->
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div
+                class="collapse navbar-collapse menu-ui-design"
+                id="navbar-menu"
+              >
+                <ul
+                  class="nav navbar-nav navbar-right"
+                  data-in="fadeInDown"
+                  data-out="fadeOutUp"
+                >
+                  <li class="scroll active">
+                    <a href="#new-cars">Car Info</a>
+                  </li>
+                  <li class="scroll"><a href="#rent">Rent Car</a></li>
+                  <li class="scroll"><a href="#contact">contact</a></li>
+                  {% if user["user_id"] > 0%}
+                  <li class=""><a href="/logout">logout</a></li>
+                  {% else %}
+                  <li class=""><a href="/login">login</a></li>
+                  {% endif %}
+                  <li class="scroll"><a href="">{{user["first_name"]}}</a></li>
+                </ul>
+                <!--/.nav -->
+              </div>
+              <!-- /.navbar-collapse -->
+            </div>
+            <!--/.container-->
+          </nav>
+          <!--/nav-->
+          <!-- End Navigation -->
+        </div>
+        <!--/.header-area-->
+        <div class="clearfix"></div>
+      </div>
+      <!-- /.top-area-->
+      <!-- top-area End -->
+    </section>
     <!-- SpinKit Loading Spinner -->
     <div id="loading-icon" class="sk-chase" style="display: none">
       <div class="sk-chase-dot"></div>
@@ -107,12 +153,19 @@
 
     <!--welcome-hero end -->
 
-    <!--new-cars start -->
+    <!--car start -->
     <section id="new-cars" class="new-cars">
+      <!--flash error-->
+      {% with messages = get_flashed_messages(category_filter=["client_error",
+      "rent_error"]) %} {% if messages %} {% for message in messages %}
+      <p class="text-danger text-center font-weight-bold">{{ message }}</p>
+      {% endfor %} {% endif %} {% endwith %}
+      <!--/.flash error-->
       <div class="container">
+        <!--/.section-header-->
         <div class="new-cars-content">
           <div class="owl-carousel owl-theme" id="new-cars-carousel">
-            {% for image in images %}
+            {% for image in images%}
             <div class="new-cars-item">
               <div class="single-new-cars-item">
                 <div class="row">
@@ -124,6 +177,47 @@
                       />
                     </div>
                     <!--/.new-cars-img-->
+                  </div>
+                  <div class="col-md-5 col-sm-12">
+                    <div class="new-cars-txt">
+                      <article class="job-card">
+                        <div>
+                          <p class="text-title">Car Information</p>
+                          <p class="post-date">
+                            Publish At: {{ car.created_at.strftime('%d-%m-%Y')}}
+                          </p>
+                        </div>
+
+                        <div class="budget-exp">
+                          <div>
+                            <p class="value">${{car.rent_price}}</p>
+                            <p class="label">Price</p>
+                          </div>
+                          <div>
+                            <p class="value">
+                              {{car.brand}} {{car.model}} {{car.year}}
+                            </p>
+                            <p class="label">Model</p>
+                          </div>
+                        </div>
+
+                        <p class="text-body">{{car.description}}</p>
+
+                        <div class="tags">
+                          <article>
+                            <p>trust</p>
+                            <p>with you</p>
+                          </article>
+                        </div>
+
+                        <div>
+                          <a href="tel:0685741795">
+                            <button class="card-btn">Contact Us</button>
+                          </a>
+                        </div>
+                      </article>
+                    </div>
+                    <!--/.new-cars-txt-->
                   </div>
                   <!--/.col-->
                 </div>
@@ -138,111 +232,350 @@
         <!--/.new-cars-content-->
       </div>
       <!--/.container-->
-      <form action="/rent/car" method="post">
-        <div class="">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="model-search-content">
-                <div class="row">
-                  <div class="col-md-offset-1 col-md-2 col-sm-12">
-                    <div class="single-model-search">
-                      <h2>Pick-up Location</h2>
-                      <div class="model-select-icon">
-                        <input
-                          id="pickup_location"
-                          type="text"
-                          name="pickup_location"
-                          placeholder="Pick-up Location"
-                          class="form-control"
-                        />
-                      </div>
-                      <!-- /.model-select-icon -->
+    </section>
+    <!--/.car-->
+
+    <form id="rent" action="/rent/car/{{car.car_id}}" method="post">
+      <div class="">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="model-search-content">
+              <div class="row">
+                <div class="col-md-offset-1 col-md-2 col-sm-12">
+                  <div class="single-model-search">
+                    <h2>Pick-up Location</h2>
+                    <div class="model-select-icon">
+                      <input
+                        id="pickup_location"
+                        type="text"
+                        name="pickup_location"
+                        placeholder="Pick-up Location"
+                        class="form-control"
+                      />
                     </div>
-                    <div class="single-model-search">
-                      <h2>Drop-off Location</h2>
-                      <div class="model-select-icon">
-                        <input
-                          id="dropoff_location"
-                          type="text"
-                          name="dropoff_location"
-                          placeholder="Drop-off Location"
-                          class="form-control"
-                        />
-                      </div>
-                      <!-- /.model-select-icon -->
-                    </div>
+                    <!-- /.model-select-icon -->
                   </div>
-                  <div class="col-md-offset-1 col-md-2 col-sm-12">
-                    <div class="single-model-search">
-                      <h2>Pick-up Date</h2>
-                      <div class="model-select-icon">
-                        <input
-                          type="date"
-                          name="pickup_date"
-                          class="form-control"
-                        />
-                      </div>
-                      <!-- /.model-select-icon -->
+                  <div class="single-model-search">
+                    <h2>Drop-off Location</h2>
+                    <div class="model-select-icon">
+                      <input
+                        id="dropoff_location"
+                        type="text"
+                        name="dropoff_location"
+                        placeholder="Drop-off Location"
+                        class="form-control"
+                      />
                     </div>
-                    <div class="single-model-search">
-                      <h2>Drop-off Date</h2>
-                      <div class="model-select-icon">
-                        <input
-                          type="date"
-                          name="dropoff_date"
-                          class="form-control"
-                        />
-                      </div>
-                      <!-- /.model-select-icon -->
-                    </div>
-                  </div>
-                  <div class="col-md-offset-1 col-md-2 col-sm-12">
-                    <div class="single-model-search">
-                      <h2>Pick-up Time</h2>
-                      <div class="model-select-icon">
-                        <input
-                          type="time"
-                          name="pickup_time"
-                          class="form-control"
-                        />
-                      </div>
-                      <!-- /.model-select-icon -->
-                    </div>
-                    <div class="single-model-search">
-                      <h2>Drop-off Time</h2>
-                      <div class="model-select-icon">
-                        <input
-                          type="time"
-                          name="dropoff_time"
-                          class="form-control"
-                        />
-                      </div>
-                      <!-- /.model-select-icon -->
-                    </div>
-                  </div>
-                  <div class="col-md-2 col-sm-12">
-                    <div class="single-model-search text-center">
-                      <button
-                        class="welcome-btn model-search-btn"
-                        type="submit"
-                      >
-                        Search
-                      </button>
-                    </div>
+                    <!-- /.model-select-icon -->
                   </div>
                 </div>
-                <!-- /.row -->
+                <div class="col-md-offset-1 col-md-2 col-sm-12">
+                  <div class="single-model-search">
+                    <h2>Pick-up Date</h2>
+                    <div class="model-select-icon">
+                      <input
+                        type="date"
+                        name="pickup_date"
+                        class="form-control"
+                      />
+                    </div>
+                    <!-- /.model-select-icon -->
+                  </div>
+                  <div class="single-model-search">
+                    <h2>Drop-off Date</h2>
+                    <div class="model-select-icon">
+                      <input
+                        type="date"
+                        name="dropoff_date"
+                        class="form-control"
+                      />
+                    </div>
+                    <!-- /.model-select-icon -->
+                  </div>
+                </div>
+                <div class="col-md-offset-1 col-md-2 col-sm-12">
+                  <div class="single-model-search">
+                    <h2>Pick-up Time</h2>
+                    <div class="model-select-icon">
+                      <input
+                        type="time"
+                        name="pickup_time"
+                        class="form-control"
+                      />
+                    </div>
+                    <!-- /.model-select-icon -->
+                  </div>
+                  <div class="single-model-search">
+                    <h2>Drop-off Time</h2>
+                    <div class="model-select-icon">
+                      <input
+                        type="time"
+                        name="dropoff_time"
+                        class="form-control"
+                      />
+                    </div>
+                    <!-- /.model-select-icon -->
+                  </div>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                  <div class="single-model-search text-center">
+                    <button
+                      type="button"
+                      class="welcome-btn model-search-btn"
+                      onclick="openModalWithRentData()"
+                    >
+                      Rent
+                    </button>
+                  </div>
+                </div>
               </div>
-              <!-- /.model-search-content -->
+              <!-- /.row -->
             </div>
-            <!-- /.col-md-12 -->
+            <!-- /.model-search-content -->
           </div>
-          <!-- /.row -->
+          <!-- /.col-md-12 -->
         </div>
-      </form>
-    </section>
-    <!--/.new-cars-->
-    <!--new-cars end -->
+        <!-- /.row -->
+      </div>
+    </form>
+
+    <!-- Modal -->
+    <div id="confirmationModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <form class="form" action="/client/register" method="post">
+          <p class="title">Register</p>
+          <p class="message">We need your Information to continue</p>
+          <div class="flex">
+            <label>
+              <input required type="text" class="input" name="first_name" />
+              <span>Firstname</span>
+            </label>
+
+            <label>
+              <input required type="text" class="input" name="last_name" />
+              <span>Lastname</span>
+            </label>
+          </div>
+
+          <label>
+            <input required type="email" class="input" name="email" />
+            <span>Email</span>
+          </label>
+
+          <label>
+            <input required type="tel" class="input" name="nr_tel" />
+            <span>Phonenumber</span>
+          </label>
+
+          <!--todo: make this for phone number-->
+          <!--<div class="ui-wrapper">
+            <input checked="" id="Austria" name="flag" type="radio" />
+            <input id="Belgium" name="flag" type="radio" />
+            <input id="Bulgaria" name="flag" type="radio" />
+            <input id="Croatia" name="flag" type="radio" />
+            <input id="Cyprus" name="flag" type="radio" />
+            <input id="Czech" name="flag" type="radio" />
+            <input id="Denmark" name="flag" type="radio" />
+            <input id="Estonia" name="flag" type="radio" />
+            <input id="Finland" name="flag" type="radio" />
+            <input id="France" name="flag" type="radio" />
+            <input id="Germany" name="flag" type="radio" />
+            <input id="Greece" name="flag" type="radio" />
+            <input id="Hungary" name="flag" type="radio" />
+            <input id="Iceland" name="flag" type="radio" />
+            <input id="Ireland" name="flag" type="radio" />
+            <input id="Italy" name="flag" type="radio" />
+            <input id="Latvia" name="flag" type="radio" />
+            <input id="Liechtenstein" name="flag" type="radio" />
+            <input id="Lithuania" name="flag" type="radio" />
+            <input id="Luxembourg" name="flag" type="radio" />
+            <input id="Malta" name="flag" type="radio" />
+            <input id="Netherlands" name="flag" type="radio" />
+            <input id="Norway" name="flag" type="radio" />
+            <input id="Poland" name="flag" type="radio" />
+            <input id="Portugal" name="flag" type="radio" />
+            <input id="Romania" name="flag" type="radio" />
+            <input id="Slovakia" name="flag" type="radio" />
+            <input id="Slovenia" name="flag" type="radio" />
+            <input id="Spain" name="flag" type="radio" />
+            <input id="Sweden" name="flag" type="radio" />
+            <input
+              class="dropdown-checkbox"
+              name="dropdown"
+              id="dropdown"
+              type="checkbox"
+            />
+            <label id="nr_tel" class="dropdown-container" for="dropdown"></label>
+            <div class="input-wrapper">
+              <div class="textfield">
+                <input
+                  pattern="\d+"
+                  maxlength="11"
+                  id="phonenumber"
+                  type="text"
+                />
+                <span class="invalid-msg"
+                  >This is not a valid phone number</span
+                >
+              </div>
+            </div>
+            <div class="select-wrapper">
+              <ul>
+                <li class="Austria">
+                  <label for="Austria"><span>🇦🇹</span>Austria (+43)</label>
+                </li>
+                <li class="Belgium">
+                  <label for="Belgium"><span>🇧🇪</span>Belgium (+32)</label>
+                </li>
+                <li class="Bulgaria">
+                  <label for="Bulgaria"><span>🇧🇬</span>Bulgaria (+359)</label>
+                </li>
+                <li class="Croatia">
+                  <label for="Croatia"><span>🇭🇷</span>Croatia (+385)</label>
+                </li>
+                <li class="Cyprus">
+                  <label for="Cyprus"><span>🇨🇾</span>Cyprus (+357)</label>
+                </li>
+                <li class="Czech">
+                  <label for="Czech"
+                    ><span>🇨🇿</span>Czech Republic (+420)</label
+                  >
+                </li>
+                <li class="Denmark">
+                  <label for="Denmark"><span>🇩🇰</span>Denmark (+45)</label>
+                </li>
+                <li class="Estonia">
+                  <label for="Estonia"><span>🇪🇪</span>Estonia (+372)</label>
+                </li>
+                <li class="Finland">
+                  <label for="Finland"><span>🇫🇮</span>Finland (+358)</label>
+                </li>
+                <li class="France">
+                  <label for="France"><span>🇫🇷</span>France (+33)</label>
+                </li>
+                <li class="Germany">
+                  <label for="Germany"><span>🇩🇪</span>Germany (+49)</label>
+                </li>
+                <li class="Greece">
+                  <label for="Greece"><span>🇬🇷</span>Greece (+30)</label>
+                </li>
+                <li class="Hungary">
+                  <label for="Hungary"><span>🇭🇺</span>Hungary (+36)</label>
+                </li>
+                <li class="Iceland">
+                  <label for="Iceland"><span>🇮🇸</span>Iceland (+354)</label>
+                </li>
+                <li class="Ireland">
+                  <label for="Ireland"
+                    ><span>🇮🇪</span>Republic of Ireland (+353)</label
+                  >
+                </li>
+                <li class="Italy">
+                  <label for="Italy"><span>🇮🇹</span>Italy (+39)</label>
+                </li>
+                <li class="Latvia">
+                  <label for="Latvia"><span>🇱🇻</span>Latvia (+371)</label>
+                </li>
+                <li class="Liechtenstein">
+                  <label for="Liechtenstein"
+                    ><span>🇱🇮</span>Liechtenstein (+423)</label
+                  >
+                </li>
+                <li class="Lithuania">
+                  <label for="Lithuania"><span>🇱🇹</span>Lithuania (+370)</label>
+                </li>
+                <li class="Luxembourg">
+                  <label for="Luxembourg"
+                    ><span>🇱🇺</span>Luxembourg (+352)</label
+                  >
+                </li>
+                <li class="Malta">
+                  <label for="Malta"><span>🇲🇹</span>Malta (+356)</label>
+                </li>
+                <li class="Netherlands">
+                  <label for="Netherlands"
+                    ><span>🇳🇱</span>Netherlands (+31)</label
+                  >
+                </li>
+                <li class="Norway">
+                  <label for="Norway"><span>🇳🇴</span>Norway (+47)</label>
+                </li>
+                <li class="Poland">
+                  <label for="Poland"><span>🇵🇱</span>Poland (+48)</label>
+                </li>
+                <li class="Portugal">
+                  <label for="Portugal"><span>🇵🇹</span>Portugal (+351)</label>
+                </li>
+                <li class="Romania">
+                  <label for="Romania"><span>🇷🇴</span>Romania (+40)</label>
+                </li>
+                <li class="Slovakia">
+                  <label for="Slovakia"><span>🇸🇰</span>Slovakia (+421)</label>
+                </li>
+                <li class="Slovenia">
+                  <label for="Slovenia"><span>🇸🇮</span>Slovenia (+386)</label>
+                </li>
+                <li class="Spain">
+                  <label for="Spain"><span>🇪🇸</span>Spain (+34)</label>
+                </li>
+                <li class="Sweden">
+                  <label for="Sweden"><span>🇸🇪</span>Sweden (+46)</label>
+                </li>
+              </ul>
+            </div>
+          </div> -->
+          <!--todo: end -->
+          <label>
+            <input
+              required
+              type="hidden"
+              name="car_id"
+              value="{{car.car_id}}"
+            />
+            <input
+              required
+              type="hidden"
+              name="pickup_location"
+              id="modal_pickup_location"
+            />
+            <input
+              required
+              type="hidden"
+              name="dropoff_location"
+              id="modal_dropoff_location"
+            />
+            <input
+              required
+              type="hidden"
+              name="pickup_date"
+              id="modal_pickup_date"
+            />
+            <input
+              required
+              type="hidden"
+              name="dropoff_date"
+              id="modal_dropoff_date"
+            />
+            <input
+              required
+              type="hidden"
+              name="pickup_time"
+              id="modal_pickup_time"
+            />
+            <input
+              required
+              type="hidden"
+              name="dropoff_time"
+              id="modal_dropoff_time"
+            />
+          </label>
+          <button class="submit" type="submit" onclick="submitForm()">
+            Confirm
+          </button>
+        </form>
+      </div>
+    </div>
 
     <!--blog start -->
     <section id="blog" class="blog"></section>
@@ -417,6 +750,7 @@
 
     <!--Custom JS-->
     <script src="../static/assets/js/custom.js"></script>
+    <script src="../static/js/client.js"></script>
 
     <script>
       const socket = io();
