@@ -11,14 +11,15 @@
       href="../static/../static/assets/logo/favicon.png"
     />
     <!-- Bootstrap Styles -->
-    <link href="../../static/admin_assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../static/seller_assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FontAwesome Styles -->
     <link
-      href="../../static/admin_assets/css/font-awesome.css"
+      href="../../static/seller_assets/css/font-awesome.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Custom Styles -->
-    <link href="../../static/admin_assets/css/custom.css" rel="stylesheet" />
+    <link href="../../static/seller_assets/css/custom.css" rel="stylesheet" />
     <!-- Google Fonts -->
     <link
       href="http://fonts.googleapis.com/css?family=Open+Sans"
@@ -26,80 +27,9 @@
       type="text/css"
     />
     <!-- Custom Inline Styles -->
-    <style>
-      /* Centering the form */
-      .form-container {
-        margin: 0 auto;
-        max-width: 600px;
-        background-color: #ffffff;
-        padding: 30px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        border-radius: 10px;
-      }
-
-      /* Styling form elements */
-      .form-container h2 {
-        text-align: center;
-        margin-bottom: 30px;
-        font-weight: bold;
-        color: #333;
-      }
-
-      .form-group label {
-        font-weight: 600;
-        color: #555;
-      }
-
-      .form-control {
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        box-shadow: none;
-        transition: border-color 0.3s ease-in-out;
-      }
-
-      .form-control:focus {
-        border-color: #5bc0de;
-        box-shadow: 0 0 5px rgba(91, 192, 222, 0.5);
-      }
-
-      .btn-submit {
-        background-color: #5bc0de;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 20px;
-        font-size: 16px;
-        transition: background-color 0.3s ease-in-out;
-        width: 100%;
-        margin-bottom: 10px;
-      }
-
-      .btn-submit:hover {
-        background-color: #31b0d5;
-      }
-
-      .btn-reset {
-        background-color: #d9534f;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 20px;
-        font-size: 16px;
-        transition: background-color 0.3s ease-in-out;
-        width: 100%;
-      }
-
-      .btn-reset:hover {
-        background-color: #c9302c;
-      }
-
-      /* Responsive adjustments */
-      @media (max-width: 767px) {
-        .form-container {
-          padding: 20px;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="../../static/css/seller/add_car.css">
+    <link rel="stylesheet" href="../../static/css/seller/load.css">
+    <link rel="stylesheet" href="../../static/css/seller/footer.css">
   </head>
   <body>
     <div id="wrapper">
@@ -121,7 +51,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/add/car">User Admin</a>
+          <a class="navbar-brand" href="/add/car">User {{user.first_name}}</a>
         </div>
         <div
           style="
@@ -131,7 +61,6 @@
             font-size: 16px;
           "
         >
-          Last access : 30 May 2014 &nbsp;
           <a href="/logout" class="btn btn-danger square-btn-adjust">Logout</a>
         </div>
       </nav>
@@ -141,7 +70,7 @@
           <ul class="nav" id="main-menu">
             <li class="text-center">
               <img
-                src="../../static/admin_assets/img/find_user.png"
+                src="../../static/seller_assets/img/find_user.png"
                 class="user-image img-responsive"
               />
             </li>
@@ -149,12 +78,17 @@
               <a href="/"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
             </li>
             <li>
-              <a href="/admin/chart"
+              <a href="/seller/chart"
                 ><i class="fa fa-bar-chart-o fa-3x"></i> Charts</a
               >
             </li>
             <li>
-              <a href="/admin/tables"
+              <a href="/seller/confirm"
+                ><i class="far fa-handshake fa-3x"></i> Confirm</a
+              >
+            </li>
+            <li>
+              <a href="/seller/tables"
                 ><i class="fa fa-table fa-3x"></i> Car Table</a
               >
             </li>
@@ -169,11 +103,20 @@
       <!-- PAGE CONTENT -->
       <div id="page-wrapper">
         <div id="page-inner">
+          <div class="row">
+            <div class="col-md-12">
+              <h2>Add a New Vehicle</h2>
+              <h5>
+                Welcome {{user.first_name}} {{user.last_name}} , Love to see you back. Now you can add a new vehicle!
+              </h5>
+            </div>
+          </div>
+          <!-- /. ROW  -->
+          <hr />
           <!-- Form Section -->
           <div class="row">
             <div class="col-md-12">
               <div class="form-container">
-                <h2>Add New Car</h2>
                 <form
                   method="post"
                   role="form"
@@ -181,7 +124,7 @@
                   action="/add/car"
                 >
                   <div class="form-group">
-                    <label for="carName">Car Name</label>
+                    <label for="carName">Car Brand</label>
                     <input
                       type="text"
                       name="brand"
@@ -214,13 +157,13 @@
                     />
                   </div>
                   <div class="form-group">
-                    <label for="price">Price ($)</label>
+                    <label for="rent_price">Price ($)</label>
                     <input
                       type="number"
-                      name="price"
+                      name="rent_price"
                       class="form-control"
-                      id="price"
-                      placeholder="Enter Price"
+                      id="rent_price"
+                      placeholder="Enter Rent Price"
                       required
                     />
                   </div>
@@ -269,12 +212,12 @@
                     ></textarea>
                   </div>
                   <div class="form-group">
-                    <label for="condition">Condition</label>
-                    <div id="condition">
+                    <label for="conditions">Condition</label>
+                    <div id="conditions">
                       <label class="radio-inline">
                         <input
                           type="radio"
-                          name="condition"
+                          name="conditions"
                           value="new"
                           required
                           checked
@@ -284,7 +227,7 @@
                       <label class="radio-inline">
                         <input
                           type="radio"
-                          name="condition"
+                          name="conditions"
                           value="used"
                           required
                         />
@@ -292,8 +235,8 @@
                       </label>
                     </div>
                   </div>
-                  <button type="submit" class="btn btn-submit">Submit</button>
-                  <button type="reset" class="btn btn-reset">Reset</button>
+                  <button type="submit" class="btn btn-submit" onclick="showLoader()">Submit</button>
+                  <button type="reset" class="btn btn-reset" onclick="showLoader()">Reset</button>
                 </form>
               </div>
             </div>
@@ -305,10 +248,29 @@
       <!-- End Page Wrapper -->
     </div>
     <!-- End Wrapper -->
+     <!-- load html -->
+     <div class="loader" id="loader" style="display:none;">
+      <div class="loader-inner">
+        <div class="loader-square"></div>
+        <div class="loader-square"></div>
+        <div class="loader-square"></div>
+        <div class="loader-square"></div>
+        <div class="loader-square"></div>
+        <div class="loader-square"></div>
+        <div class="loader-square"></div>
+        <div class="loader-square"></div>
+      </div>
+    </div> 
     <!-- SCRIPTS -->
-    <script src="../../static/admin_assets/js/jquery-1.10.2.js"></script>
-    <script src="../../static/admin_assets/js/bootstrap.min.js"></script>
-    <script src="../../static/admin_assets/js/jquery.metisMenu.js"></script>
-    <script src="../../static/admin_assets/js/custom.js"></script>
+    <script src="../../static/seller_assets/js/jquery-1.10.2.js"></script>
+    <script src="../../static/seller_assets/js/bootstrap.min.js"></script>
+    <script src="../../static/seller_assets/js/jquery.metisMenu.js"></script>
+    <script src="../../static/seller_assets/js/custom.js"></script>
+    <script src="../../static/js/load.js"></script>
+
+    <!-- COPYRIGHT SECTION -->
+    <div id="footer-tape">
+      &copy; 2024 Flori Bica. All rights reserved.
+    </div>
   </body>
 </html>

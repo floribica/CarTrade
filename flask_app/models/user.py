@@ -22,7 +22,16 @@ class User:
         self.role = data['role']
         self.nr_tel = data['nr_tel']
         
-        
+    
+    @classmethod
+    def get_user_email(cls, data):
+        query = "SELECT email FROM users WHERE user_id = %(user_id)s;"
+        results = connectToMySQL(DB_NAME).query_db(query, data)
+        if results:
+            return results[0]
+        return False
+    
+    
     @classmethod
     def get_user_by_email(cls, data):
         query = "SELECT * FROM users WHERE email = %(email)s;"

@@ -13,16 +13,19 @@
       href="../static/../static/assets/logo/favicon.png"
     />
     <!-- BOOTSTRAP STYLES-->
-    <link href="../../static/admin_assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../static/seller_assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONTAWESOME STYLES-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link
-      href="../../static/admin_assets/css/font-awesome.css"
+      href="../../static/seller_assets/css/font-awesome.css"
       rel="stylesheet"
     />
     <!-- MORRIS CHART STYLES-->
+    <link rel="stylesheet" href="../../static/css/seller/footer.css">
 
     <!-- CUSTOM STYLES-->
-    <link href="../../static/admin_assets/css/custom.css" rel="stylesheet" />
+    <link href="../../static/seller_assets/css/custom.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../static/css/seller/load.css" />
     <!-- GOOGLE FONTS-->
     <link
       href="http://fonts.googleapis.com/css?family=Open+Sans"
@@ -31,7 +34,7 @@
     />
     <!-- TABLE STYLES-->
     <link
-      href="../../static/admin_assets/js/dataTables/dataTables.bootstrap.css"
+      href="../../static/seller_assets/js/dataTables/dataTables.bootstrap.css"
       rel="stylesheet"
     />
 
@@ -60,7 +63,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/admin/tables">User Admin</a>
+          <a class="navbar-brand" href="/seller/tables">User {{user.first_name}}</a>
         </div>
         <div
           style="
@@ -70,7 +73,6 @@
             font-size: 16px;
           "
         >
-          Last access : 30 May 2014 &nbsp;
           <a href="/logout" class="btn btn-danger square-btn-adjust">Logout</a>
         </div>
       </nav>
@@ -80,7 +82,7 @@
           <ul class="nav" id="main-menu">
             <li class="text-center">
               <img
-                src="../../static/admin_assets/img/find_user.png"
+                src="../../static/seller_assets/img/find_user.png"
                 class="user-image img-responsive"
               />
             </li>
@@ -88,12 +90,17 @@
               <a href="/"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
             </li>
             <li>
-              <a href="/admin/chart"
+              <a href="/seller/chart"
                 ><i class="fa fa-bar-chart-o fa-3x"></i> Charts</a
               >
             </li>
             <li>
-              <a class="active-menu" href="/admin/tables"
+              <a href="/seller/confirm"
+                ><i class="far fa-handshake fa-3x"></i> Confirm</a
+              >
+            </li>
+            <li>
+              <a class="active-menu" href="/seller/tables"
                 ><i class="fa fa-table fa-3x"></i>Car Table</a
               >
             </li>
@@ -142,7 +149,7 @@
             <div class="col-md-12">
               <h2>Car Display</h2>
               <h5>
-                Welcome Admin , Love to see you back. Here is the list of all
+                Welcome {{user.first_name}} {{user.last_name}} , Love to see you back. Here is the list of all
                 cars in the database.
               </h5>
             </div>
@@ -180,7 +187,7 @@
                           <td>{{car.model}}</td>
                           <td>{{car.year}}</td>
                           <td>{{car.condition}}</td>
-                          <td class="center">${{car.price}}.00</td>
+                          <td class="center">${{car.rent_price}}.00</td>
                           <td>
                             <a
                               href="#"
@@ -192,8 +199,9 @@
                               <i class="fa fa-picture-o"></i>
                             </a>
                             <a
-                              href="/admin/delete/car/{{car.car_id}}"
+                              href="/seller/delete/car/{{car.car_id}}"
                               class="btn btn-danger btn-xs"
+                              onclick="showLoader()"
                               ><i class="fa fa-trash-o"></i
                             ></a>
                           </td>
@@ -214,16 +222,33 @@
     </div>
     <!-- /. PAGE WRAPPER  -->
     <!-- /. WRAPPER  -->
+     <!-- load html -->
+     <div class="loader" id="loader" style="display:none;">
+      <div class="loader-inner">
+        <div class="loader-square"></div>
+        <div class="loader-square"></div>
+        <div class="loader-square"></div>
+        <div class="loader-square"></div>
+        <div class="loader-square"></div>
+        <div class="loader-square"></div>
+        <div class="loader-square"></div>
+        <div class="loader-square"></div>
+      </div>
+    </div>
+    <!-- FOOTER -->
+    <div id="footer-tape">
+      &copy; 2024 Flori Bica. All rights reserved.
+    </div>
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
-    <script src="../../static/admin_assets/js/jquery-1.10.2.js"></script>
+    <script src="../../static/seller_assets/js/jquery-1.10.2.js"></script>
     <!-- BOOTSTRAP SCRIPTS -->
-    <script src="../../static/admin_assets/js/bootstrap.min.js"></script>
+    <script src="../../static/seller_assets/js/bootstrap.min.js"></script>
     <!-- METISMENU SCRIPTS -->
-    <script src="../../static/admin_assets/js/jquery.metisMenu.js"></script>
+    <script src="../../static/seller_assets/js/jquery.metisMenu.js"></script>
     <!-- DATA TABLE SCRIPTS -->
-    <script src="../../static/admin_assets/js/dataTables/jquery.dataTables.js"></script>
-    <script src="../../static/admin_assets/js/dataTables/dataTables.bootstrap.js"></script>
+    <script src="../../static/seller_assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="../../static/seller_assets/js/dataTables/dataTables.bootstrap.js"></script>
     <script>
       $(document).ready(function () {
         $("#dataTables-example").dataTable();
@@ -238,6 +263,7 @@
       });
     </script>
     <!-- CUSTOM SCRIPTS -->
-    <script src="../../static/admin_assets/js/custom.js"></script>
+    <script src="../../static/seller_assets/js/custom.js"></script>
+    <script src="../../static/js/load.js"></script>
   </body>
 </html>

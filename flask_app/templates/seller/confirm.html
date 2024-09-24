@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- title of site -->
+    <title>CarTrader</title>
+
+    <!-- For favicon png -->
+    <link
+      rel="shortcut icon"
+      type="image/icon"
+      href="../static/../static/assets/logo/favicon.png"
+    />
+    <!-- BOOTSTRAP STYLES-->
+    <link
+      href="../../static/seller_assets/css/bootstrap.css"
+      rel="stylesheet"
+    />
+    <!-- FONTAWESOME STYLES-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      href="../../static/seller_assets/css/font-awesome.css"
+      rel="stylesheet"
+    />
+    <!-- MORRIS CHART STYLES-->
+
+    <!-- CUSTOM STYLES-->
+    <link href="../../static/seller_assets/css/custom.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../static/css/seller/load.css" />
+    <link rel="stylesheet" href="../../static/css/seller/footer.css" />
+    <!-- GOOGLE FONTS-->
+    <link
+      href="http://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- TABLE STYLES-->
+    <link
+      href="../../static/seller_assets/js/dataTables/dataTables.bootstrap.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap CSS -->
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div id="wrapper">
+      <nav
+        class="navbar navbar-default navbar-cls-top"
+        role="navigation"
+        style="margin-bottom: 0"
+      >
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle"
+            data-toggle="collapse"
+            data-target=".sidebar-collapse"
+          >
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/seller/tables"
+            >User {{user.first_name}}</a
+          >
+        </div>
+        <div
+          style="
+            color: white;
+            padding: 15px 50px 5px 50px;
+            float: right;
+            font-size: 16px;
+          "
+        >
+          <a href="/logout" class="btn btn-danger square-btn-adjust">Logout</a>
+        </div>
+      </nav>
+      <!-- /. NAV TOP  -->
+      <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+          <ul class="nav" id="main-menu">
+            <li class="text-center">
+              <img
+                src="../../static/seller_assets/img/find_user.png"
+                class="user-image img-responsive"
+              />
+            </li>
+            <li>
+              <a href="/"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+            </li>
+            <li>
+              <a href="/seller/chart"
+                ><i class="fa fa-bar-chart-o fa-3x"></i> Charts</a
+              >
+            </li>
+            <li>
+              <a class="active-menu" href="/seller/confirm"
+                ><i class="far fa-handshake fa-3x"></i> Confirm</a
+              >
+            </li>
+            <li>
+              <a href="/seller/tables"
+                ><i class="fa fa-table fa-3x"></i>Car Table</a
+              >
+            </li>
+            <li>
+              <a href="/add/car"><i class="fa fa-edit fa-3x"></i> Add Car </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!-- /. NAV SIDE  -->
+
+      <div id="page-wrapper">
+        <div id="page-inner">
+          <div class="row">
+            <div class="col-md-12">
+              <h2>Payments</h2>
+              <h5>
+                Welcome {{user.first_name}} {{user.last_name}} , Love to see you
+                back.
+              </h5>
+            </div>
+          </div>
+          <!-- /. ROW  -->
+          <hr />
+          <!-- load html -->
+          <div class="loader" id="loader" style="display: none">
+            <div class="loader-inner">
+              <div class="loader-square"></div>
+              <div class="loader-square"></div>
+              <div class="loader-square"></div>
+              <div class="loader-square"></div>
+              <div class="loader-square"></div>
+              <div class="loader-square"></div>
+              <div class="loader-square"></div>
+              <div class="loader-square"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <!-- Advanced Tables -->
+              <div class="panel panel-default">
+                <div class="panel-heading">Advanced Tables</div>
+                <div class="panel-body">
+                  <div class="table-responsive">
+                    <table
+                      class="table table-striped table-bordered table-hover"
+                      id="dataTables-example"
+                    >
+                      <thead>
+                        <tr>
+                          <th>Payment ID</th>
+                          <th>Type</th>
+                          <th>Status</th>
+                          <th>Car ID</th>
+                          <th>Client Name</th>
+                          <th>Confirmation</th>
+                          <th>Amount</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for payment in payments %}
+                        <tr class="odd gradeX">
+                          <td class="center">{{payment.payment_id}}</td>
+                          <td class="center">{{payment.type}}</td>
+                          <td class="center">{{payment.status}}</td>
+                          <td class="center">{{payment.car_id}}</td>
+                          <td class="center">
+                            {{payment.first_name}} {{payment.last_name}}
+                          </td>
+                          <td class="center">{{payment.confirmation}}</td>
+                          <td class="center">${{payment.amount}}.00</td>
+                          <td>
+                            <a
+                              href="/seller/confirm_payment/{{payment.payment_id}}"
+                              class="btn btn-success btn-xs"
+                              onclick="showLoader()"
+                            >
+                              <i class="fa fa-check"></i>
+                            </a>
+                            <!--suggest-->
+                            <a
+                              href="/seller/suggest/{{payment.payment_id}}"
+                              class="btn btn-warning btn-xs"
+                              onclick="showLoader()"
+                            >
+                              <i class="fa fa-lightbulb"></i>
+                            </a>
+                            <a
+                              href="/seller/cancel_payment/{{payment.payment_id}}"
+                              class="btn btn-danger btn-xs"
+                              onclick="showLoader()"
+                            >
+                              <i class="fa fa-times"></i>
+                            </a>
+                          </td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <!--End Advanced Tables -->
+            </div>
+          </div>
+          <!-- /. ROW  -->
+        </div>
+      </div>
+      <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+    <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <script src="../../static/seller_assets/js/jquery-1.10.2.js"></script>
+    <!-- BOOTSTRAP SCRIPTS -->
+    <script src="../../static/seller_assets/js/bootstrap.min.js"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="../../static/seller_assets/js/jquery.metisMenu.js"></script>
+    <!-- DATA TABLE SCRIPTS -->
+    <script src="../../static/seller_assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="../../static/seller_assets/js/dataTables/dataTables.bootstrap.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#dataTables-example").dataTable();
+      });
+    </script>
+    <!-- CUSTOM SCRIPTS -->
+    <script src="../../static/seller_assets/js/custom.js"></script>
+    <script src="../../static/js/load.js"></script>
+    <!-- COPYRIGHT SECTION -->
+    <div id="footer-tape">&copy; 2024 Flori Bica. All rights reserved.</div>
+  </body>
+</html>

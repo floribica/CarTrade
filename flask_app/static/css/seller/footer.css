@@ -1,0 +1,8 @@
+#footer-tape {
+    background-color: rgb(32 32 32); /* Black background */
+    color: #fff; /* White text */
+    text-align: center;
+    padding: 10px 0; /* Padding for spacing */
+    position: relative;
+    width: 100%; /* Full width */
+  }

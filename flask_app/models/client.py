@@ -37,7 +37,16 @@ class Client:
         query = "SELECT * FROM clients WHERE client_id = %(client_id)s;"
         result = connectToMySQL(DB_NAME).query_db(query, data)
         if result:
-            return cls(result[0])
+            return result[0]
+        return None
+    
+    
+    @classmethod
+    def count_total_client_by_month(cls):
+        query = "SELECT COUNT(client_id) AS total_client, MONTHNAME(created_at) AS month FROM clients WHERE YEAR(created_at) = YEAR(CURDATE()) GROUP BY month;"
+        result = connectToMySQL(DB_NAME).query_db(query)
+        if result:
+            return result
         return None
 
 

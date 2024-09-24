@@ -14,15 +14,10 @@ socketio = SocketIO(app)
 
 @app.route("/")
 def check():
-    if 'user' not in session or session['user']['role'] != "shites":
+    if 'user' not in session or session['user']['role'] != "seller":
         return redirect("/dashboard")
-    if session['user']["role"] == "shites":
-        return redirect("/admin")
-
-
-@app.route("/admin")
-def admin():
-    return render_template("admin/index.html", user=session['user'])
+    if session['user']["role"] == "seller":
+        return redirect("/seller")
 
 
 @app.route("/dashboard")

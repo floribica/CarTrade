@@ -5,11 +5,11 @@ from dotenv import load_dotenv
 from flask_app import app
 from flask_app.controllers import (
     dashboard,
-    admin,
     cars,
     clients,
     payments
 )
+from flask_app.controllers.seller import chart, confirm, tables, dashboard, add_car
 
 load_dotenv()
 HOST = os.getenv('HOST')

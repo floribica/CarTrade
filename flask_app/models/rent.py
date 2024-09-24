@@ -42,6 +42,15 @@ class Rent:
         return False
     
     
+    @classmethod
+    def get_rent_by_id(cls, data):
+        query = "SELECT * FROM rents WHERE car_id = %(car_id)s;"
+        result = connectToMySQL(DB_NAME).query_db(query, data)
+        if result:
+            return result[0]
+        return None
+    
+    
     @staticmethod
     def validate_rent(data):
         

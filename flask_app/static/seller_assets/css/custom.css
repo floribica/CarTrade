@@ -363,14 +363,14 @@ line-height: 1.428571429;
 }
 
 /* Styling the radio button container */
-#condition {
+#conditions {
     display: flex;
     justify-content: space-around;
     margin-top: 10px;
 }
 
 /* Styling each label within the radio button group */
-#condition .radio-inline {
+#conditions .radio-inline {
     font-weight: 600;
     color: #555;
     position: relative;
@@ -379,7 +379,7 @@ line-height: 1.428571429;
 }
 
 /* Styling the radio button itself */
-#condition .radio-inline input[type="radio"] {
+#conditions .radio-inline input[type="radio"] {
     position: absolute;
     left: 0;
     top: 0;
@@ -390,13 +390,13 @@ line-height: 1.428571429;
 }
 
 /* Changing the color of the radio button on hover */
-#condition .radio-inline:hover input[type="radio"] {
+#conditions .radio-inline:hover input[type="radio"] {
     background-color: #5bc0de;
     border-color: #5bc0de;
 }
 
 /* Changing the color of the radio button when selected */
-#condition .radio-inline input[type="radio"]:checked::before {
+#conditions .radio-inline input[type="radio"]:checked::before {
     background-color: #5bc0de;
     border-color: #5bc0de;
 }
