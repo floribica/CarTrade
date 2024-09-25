@@ -70,11 +70,11 @@ def confirm_rent(client_id, car_id):
             "car_id": car_id,
             "user_id": session['user']['user_id']
         }
-        return redirect("/")
+        return redirect("/seller/confirm")
 
     data = {
         "car_id": car_id,
         "client_id": client_id
     }
     Payment.confirm_payment(data)
-    return redirect('/')
+    return redirect("/seller/confirm")

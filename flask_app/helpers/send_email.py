@@ -107,7 +107,7 @@ def user_email_confirm(data):
                     </tr>
                     <tr>
                         <td align="center" style="padding: 20px;">
-                            <a href="http://localhost:5050/confirm_rent/{data["client_id"]}/{data['car_id']}" style="background-color: #28a745; color: #ffffff; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Edit Rent</a>
+                            <a href="http://localhost:5050/confirm_rent/{data["client_id"]}/{data['car_id']}" style="background-color: #28a745; color: #ffffff; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Confirm Rent</a>
                         </td>
 
                     </tr>
@@ -468,3 +468,50 @@ def suggest_email(data):
         </body>
         </html>
         """
+
+
+def password_email(email, password):
+    return f"""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CarTrade Account Created</title>
+    </head>
+    <body style="font-family: Arial, sans-serif; color: #322d28; background-color: #f4f4f4; margin: 0; padding: 0;">
+
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f4f4f4; padding: 20px;">
+        <tr>
+            <td align="center">
+                <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff; border: 1px solid #dddddd; padding: 20px;">
+                    <tr>
+                        <td align="center" style="padding: 10px 0 20px 0;">
+                            <img src="http://www.travelerie.com/wp-content/uploads/2014/04/PlaceholderLogoBlue.jpg" alt="CarTrade" style="display: block; width: 200px;"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" style="font-size: 16px; padding: 20px;">
+                            <h2 style="color: #1779ba; font-size: 24px;">Account Creation Confirmation</h2>
+                            <p>Hello,</p>
+                            <p>We are pleased to inform you that your account on CarTrade has been successfully created.</p>
+                            <p>Your login credentials are as follows:</p>
+                            <ul>
+                                <li><strong>Email:</strong> {email}</li>
+                                <li><strong>Password:</strong> {password}</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="padding: 20px;">
+                            <p>If you have any questions or need assistance, please contact our support team at <strong>+355 685741795</strong>.</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    </body>
+    </html>
+    """

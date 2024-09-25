@@ -14,10 +14,13 @@ socketio = SocketIO(app)
 
 @app.route("/")
 def check():
-    if 'user' not in session or session['user']['role'] != "seller":
+    
+    if 'user' not in session:
         return redirect("/dashboard")
     if session['user']["role"] == "seller":
         return redirect("/seller")
+    if session['user']["role"] == "admin":
+        return redirect("/admin")
 
 
 @app.route("/dashboard")
@@ -68,23 +71,6 @@ def login():
 def logout():
     session.clear()
     return redirect("/")
-
-
-@app.route("/register", methods=["POST", "GET"])
-def register():
-    if request.method == "POST":
-        data = {
-            "first_name": request.form["first_name"],
-            "last_name": request.form["last_name"],
-            "email": request.form["email"],
-            "password": request.form["password"],
-            "confirm_password": request.form["confirm_password"]
-        }
-        if User.validate_registration(data):
-            data["password"] = bcrypt.generate_password_hash(data["password"])
-            User.add_user(data)
-            return redirect("/login")
-    return render_template("register.html")
 
 
 @socketio.on('message')

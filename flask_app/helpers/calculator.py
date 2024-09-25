@@ -27,3 +27,9 @@ def calculate_price(data):
         "shipping": shipping
     }
     return amount
+
+
+def calculate_totals(data):
+    total_amount = sum(item['amount'] for item in data)
+    total_commission = sum(item['commission'] for item in data)
+    return total_amount, total_commission

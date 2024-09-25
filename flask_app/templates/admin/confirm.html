@@ -13,19 +13,25 @@
       href="../static/../static/assets/logo/favicon.png"
     />
     <!-- BOOTSTRAP STYLES-->
-    <link href="../../static/seller_assets/css/bootstrap.css" rel="stylesheet" />
+    <link
+      href="../../static/seller_assets/css/bootstrap.css"
+      rel="stylesheet"
+    />
     <!-- FONTAWESOME STYLES-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
     <link
       href="../../static/seller_assets/css/font-awesome.css"
       rel="stylesheet"
     />
     <!-- MORRIS CHART STYLES-->
-    <link rel="stylesheet" href="../../static/css/seller/footer.css">
 
     <!-- CUSTOM STYLES-->
     <link href="../../static/seller_assets/css/custom.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../static/css/seller/load.css" />
+    <link rel="stylesheet" href="../../static/css/seller/footer.css" />
     <!-- GOOGLE FONTS-->
     <link
       href="http://fonts.googleapis.com/css?family=Open+Sans"
@@ -63,7 +69,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/seller/tables">User {{user.first_name}}</a>
+          <a class="navbar-brand" href="/admin/tables"
+            >User {{user.first_name}}</a
+          >
         </div>
         <div
           style="
@@ -90,78 +98,67 @@
               <a href="/"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
             </li>
             <li>
-              <a href="/seller/chart"
+              <a href="/admin/chart"
                 ><i class="fa fa-bar-chart-o fa-3x"></i> Charts</a
               >
             </li>
             <li>
-              <a href="/seller/confirm"
+              <a class="active-menu" href="/admin/confirm"
                 ><i class="far fa-handshake fa-3x"></i> Confirm</a
               >
             </li>
             <li>
-              <a class="active-menu" href="/seller/tables"
+              <a href="/admin/tables"
                 ><i class="fa fa-table fa-3x"></i>Car Table</a
               >
             </li>
             <li>
-              <a href="/add/car"><i class="fa fa-edit fa-3x"></i> Add Car </a>
+              <a href="/admin/register"
+                ><i class="fa fa-edit fa-3x"></i> Register User
+              </a>
             </li>
           </ul>
         </div>
       </nav>
       <!-- /. NAV SIDE  -->
 
-      <!-- Modal -->
-      <div
-        class="modal fade"
-        id="uploadImageModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="uploadImageModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="uploadImageModalLabel">
-                Upload Images
-              </h5>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <!-- Content will be loaded here via AJAX -->
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div id="page-wrapper">
         <div id="page-inner">
           <div class="row">
             <div class="col-md-12">
-              <h2>Car Display</h2>
+              <h2>Payments</h2>
               <h5>
-                Welcome {{user.first_name}} {{user.last_name}} , Love to see you back. Here is the list of all
-                cars in the database.
+                Welcome {{user.first_name}} {{user.last_name}} , Love to see you
+                back.
               </h5>
             </div>
           </div>
           <!-- /. ROW  -->
           <hr />
-
+          <!-- load html -->
+          <div class="loader" id="loader" style="display: none">
+            <div class="loader-inner">
+              <div class="loader-square"></div>
+              <div class="loader-square"></div>
+              <div class="loader-square"></div>
+              <div class="loader-square"></div>
+              <div class="loader-square"></div>
+              <div class="loader-square"></div>
+              <div class="loader-square"></div>
+              <div class="loader-square"></div>
+            </div>
+          </div>
+          {% for payments in all_payments%}
           <div class="row">
             <div class="col-md-12">
               <!-- Advanced Tables -->
               <div class="panel panel-default">
-                <div class="panel-heading">Advanced Tables</div>
+                <div class="panel-heading">
+                  Confirmation Tables for
+                  <span style="font-style: italic; color: blue"
+                    >{{payments[0]["first_name"]}} {{payments[0]["last_name"]}}
+                  </span>
+                </div>
                 <div class="panel-body">
                   <div class="table-responsive">
                     <table
@@ -170,38 +167,62 @@
                     >
                       <thead>
                         <tr>
-                          <th>ID</th>
-                          <th>Year</th>
-                          <th>Brand</th>
-                          <th>Model</th>
-                          <th>Price</th>
+                          <th>Payment ID</th>
+                          <th>Type</th>
+                          <th>Car ID</th>
+                          <th>Client Name</th>
+                          <th>Client Email</th>
+                          <th>Client PhoneNumber</th>
+                          <th>Confirmation</th>
+                          <th>Amount</th>
                           <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {% for car in all_cars %}
+                        {% for payment in payments %}
                         <tr class="odd gradeX">
-                          <td>{{car.car_id}}</td>
-                          <td>{{car.brand}}</td>
-                          <td>{{car.model}}</td>
-                          <td>{{car.year}}</td>
-                          <td class="center">${{car.rent_price}}.00</td>
+                          <td class="center">{{payment.payment_id}}</td>
+                          <td class="center">{{payment.type}}</td>
+                          <td class="center">{{payment.car_id}}</td>
+                          <td class="center">
+                            {{payment.client_first_name}}
+                            {{payment.client_last_name}}
+                          </td>
+                          <td class="center">{{payment.email}}</td>
+                          <td class="center">{{payment.nr_tel}}</td>
+                          <td class="center">
+                            {% if payment.confirmation == 1 %}
+                            <span class="label label-success">Confirmed</span>
+                            {% else %}
+                            <span class="label label-danger"
+                              >Not Confirmed</span
+                            >
+                            {% endif %}
+                          </td>
+                          <td class="center">${{payment.amount}}.00</td>
                           <td>
                             <a
-                              href="#"
-                              class="btn btn-primary btn-xs"
-                              data-toggle="modal"
-                              data-target="#uploadImageModal"
-                              data-url="/car/add_image/{{car.car_id}}"
+                              href="/admin/confirm_payment/{{payment.payment_id}}"
+                              class="btn btn-success btn-xs"
+                              onclick="showLoader()"
                             >
-                              <i class="fa fa-picture-o"></i>
+                              <i class="fa fa-check"></i>
+                            </a>
+                            <!--suggest-->
+                            <a
+                              href="/admin/suggest/{{payment.payment_id}}"
+                              class="btn btn-warning btn-xs"
+                              onclick="showLoader()"
+                            >
+                              <i class="fa fa-lightbulb"></i>
                             </a>
                             <a
-                              href="/seller/delete/car/{{car.car_id}}"
+                              href="/admin/cancel_payment/{{payment.payment_id}}"
                               class="btn btn-danger btn-xs"
                               onclick="showLoader()"
-                              ><i class="fa fa-trash-o"></i
-                            ></a>
+                            >
+                              <i class="fa fa-times"></i>
+                            </a>
                           </td>
                         </tr>
                         {% endfor %}
@@ -214,29 +235,13 @@
             </div>
           </div>
           <!-- /. ROW  -->
+          {% endfor %}
         </div>
       </div>
       <!-- /. PAGE INNER  -->
     </div>
     <!-- /. PAGE WRAPPER  -->
     <!-- /. WRAPPER  -->
-     <!-- load html -->
-     <div class="loader" id="loader" style="display:none;">
-      <div class="loader-inner">
-        <div class="loader-square"></div>
-        <div class="loader-square"></div>
-        <div class="loader-square"></div>
-        <div class="loader-square"></div>
-        <div class="loader-square"></div>
-        <div class="loader-square"></div>
-        <div class="loader-square"></div>
-        <div class="loader-square"></div>
-      </div>
-    </div>
-    <!-- FOOTER -->
-    <div id="footer-tape">
-      &copy; 2024 Flori Bica. All rights reserved.
-    </div>
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
     <script src="../../static/seller_assets/js/jquery-1.10.2.js"></script>
@@ -252,16 +257,10 @@
         $("#dataTables-example").dataTable();
       });
     </script>
-    <script type="text/javascript">
-      $("#uploadImageModal").on("show.bs.modal", function (event) {
-        var button = $(event.relatedTarget); // Button that triggered the modal
-        var url = button.data("url"); // Extract info from data-* attributes
-        var modal = $(this);
-        modal.find(".modal-body").load(url); // Load the content into the modal body
-      });
-    </script>
     <!-- CUSTOM SCRIPTS -->
     <script src="../../static/seller_assets/js/custom.js"></script>
     <script src="../../static/js/load.js"></script>
+    <!-- COPYRIGHT SECTION -->
+    <div id="footer-tape">&copy; 2024 Flori Bica. All rights reserved.</div>
   </body>
 </html>

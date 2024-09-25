@@ -21,7 +21,12 @@ class Rent:
     
     @classmethod
     def add_rent(cls, data):
-        query = "INSERT INTO rents (pickup_location, pickup_date, pickup_time, dropoff_location, dropoff_date, dropoff_time, car_id, client_id) VALUES (%(pickup_location)s, %(pickup_date)s, %(pickup_time)s, %(dropoff_location)s, %(dropoff_date)s, %(dropoff_time)s, %(car_id)s, %(client_id)s);"
+        query = """
+            INSERT INTO rents
+                (pickup_location, pickup_date, pickup_time, dropoff_location, dropoff_date, dropoff_time, car_id, client_id)
+            VALUES
+                (%(pickup_location)s, %(pickup_date)s, %(pickup_time)s, %(dropoff_location)s, %(dropoff_date)s, %(dropoff_time)s, %(car_id)s, %(client_id)s);
+            """
         return connectToMySQL(DB_NAME).query_db(query, data)
     
     

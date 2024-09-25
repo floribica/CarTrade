@@ -78,7 +78,17 @@ class Car:
     def get_similar_price_car(cls, rent_price,data):
         min_price = rent_price - 10
         max_price = rent_price + 10
-        query = f"SELECT * FROM cars WHERE display = 1 AND rent_price BETWEEN {min_price} AND {max_price} AND car_id != %(car_id)s AND user_id = %(user_id)s ORDER BY rent_price LIMIT 1;"
+        query = f"""
+            SELECT
+                *
+            FROM cars
+            WHERE display = 1
+            AND rent_price BETWEEN {min_price} AND {max_price}
+            AND car_id != %(car_id)s
+            AND user_id = %(user_id)s
+            ORDER BY rent_price
+            LIMIT 1;
+        """
         result = connectToMySQL(DB_NAME).query_db(query, data)
         if result:
             return result[0]
@@ -167,7 +177,12 @@ class Car:
 
     @classmethod
     def add_car(cls, data):
-        query = "INSERT INTO cars (`year`, `brand`, `model`, `style`, `conditions`, `rent_price`, `km`, `image`, `description`, `user_id`) VALUES (%(year)s, %(brand)s, %(model)s, %(style)s, %(conditions)s, %(rent_price)s, %(km)s, %(image)s, %(description)s, %(user_id)s);"
+        query = """
+            INSERT INTO cars
+                (`year`, `brand`, `model`, `style`, `conditions`, `rent_price`, `km`, `image`, `description`, `user_id`)
+            VALUES
+                (%(year)s, %(brand)s, %(model)s, %(style)s, %(conditions)s, %(rent_price)s, %(km)s, %(image)s, %(description)s, %(user_id)s);
+            """
         return connectToMySQL(DB_NAME).query_db(query, data)
 
 

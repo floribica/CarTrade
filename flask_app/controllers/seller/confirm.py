@@ -35,20 +35,6 @@ def seller_confirm_payment(payment_id):
     return redirect('/seller/confirm')
 
 
-@app.route('/seller/cancel_payment/<int:payment_id>')
-def seller_cancel_payment(payment_id):
-    if 'user' not in session:
-        return redirect('/')
-    if session['user']['role'] != "seller":
-        return redirect('/')
-    message = cancellation_email({"payment_id": payment_id})
-    payment = Payment.get_payment_by_id({"payment_id": payment_id})
-    client = Client.get_client_by_id({"client_id": payment["client_id"]})
-    send_email(client["email"], "Cancel the Rental Car", message)
-    Payment.cance_payment({"payment_id": payment_id})
-    return redirect('/seller/confirm')
-
-
 @app.route("/seller/suggest/<int:payment_id>")
 def seller_suggest(payment_id):
     if 'user' not in session:

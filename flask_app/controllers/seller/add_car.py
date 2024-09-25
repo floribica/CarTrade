@@ -20,7 +20,7 @@ def add_new_car():
     if request.method == 'GET':
         if 'user' not in session:
             return redirect('/')
-        if session['user']['user_id'] != 1:
+        if session['user']['role'] != "seller" and session['user']['role'] != "admin":
             return redirect('/')
         user = session['user']
         return render_template('seller/add_car.html', user=user)
@@ -67,7 +67,7 @@ def add_new_car():
 def add_car_image(car_id):
     if 'user' not in session:
         return redirect('/')
-    if session['user']['user_id'] != 1:
+    if session['user']['role'] != "seller" and session['user']['role'] != "admin":
         return redirect('/')
 
     if request.method == 'GET':

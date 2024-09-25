@@ -13,15 +13,21 @@
       href="../static/../static/assets/logo/favicon.png"
     />
     <!-- BOOTSTRAP STYLES-->
-    <link href="../../static/seller_assets/css/bootstrap.css" rel="stylesheet" />
+    <link
+      href="../../static/seller_assets/css/bootstrap.css"
+      rel="stylesheet"
+    />
     <!-- FONTAWESOME STYLES-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
     <link
       href="../../static/seller_assets/css/font-awesome.css"
       rel="stylesheet"
     />
     <!-- MORRIS CHART STYLES-->
-    <link rel="stylesheet" href="../../static/css/seller/footer.css">
+    <link rel="stylesheet" href="../../static/css/seller/footer.css" />
 
     <!-- CUSTOM STYLES-->
     <link href="../../static/seller_assets/css/custom.css" rel="stylesheet" />
@@ -63,7 +69,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/seller/tables">User {{user.first_name}}</a>
+          <a class="navbar-brand" href="/admin/tables"
+            >User {{user.first_name}}</a
+          >
         </div>
         <div
           style="
@@ -90,22 +98,24 @@
               <a href="/"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
             </li>
             <li>
-              <a href="/seller/chart"
+              <a href="/admin/chart"
                 ><i class="fa fa-bar-chart-o fa-3x"></i> Charts</a
               >
             </li>
             <li>
-              <a href="/seller/confirm"
+              <a href="/admin/confirm"
                 ><i class="far fa-handshake fa-3x"></i> Confirm</a
               >
             </li>
             <li>
-              <a class="active-menu" href="/seller/tables"
+              <a class="active-menu" href="/admin/tables"
                 ><i class="fa fa-table fa-3x"></i>Car Table</a
               >
             </li>
             <li>
-              <a href="/add/car"><i class="fa fa-edit fa-3x"></i> Add Car </a>
+              <a href="/admin/register"
+                ><i class="fa fa-edit fa-3x"></i> Register User
+              </a>
             </li>
           </ul>
         </div>
@@ -149,8 +159,8 @@
             <div class="col-md-12">
               <h2>Car Display</h2>
               <h5>
-                Welcome {{user.first_name}} {{user.last_name}} , Love to see you back. Here is the list of all
-                cars in the database.
+                Welcome {{user.first_name}} {{user.last_name}} , Love to see you
+                back. Here is the list of all cars in the database.
               </h5>
             </div>
           </div>
@@ -174,6 +184,7 @@
                           <th>Year</th>
                           <th>Brand</th>
                           <th>Model</th>
+                          <th>Condition</th>
                           <th>Price</th>
                           <th>Actions</th>
                         </tr>
@@ -185,6 +196,7 @@
                           <td>{{car.brand}}</td>
                           <td>{{car.model}}</td>
                           <td>{{car.year}}</td>
+                          <td>{{car.conditions}}</td>
                           <td class="center">${{car.rent_price}}.00</td>
                           <td>
                             <a
@@ -197,7 +209,7 @@
                               <i class="fa fa-picture-o"></i>
                             </a>
                             <a
-                              href="/seller/delete/car/{{car.car_id}}"
+                              href="/admin/delete/car/{{car.car_id}}"
                               class="btn btn-danger btn-xs"
                               onclick="showLoader()"
                               ><i class="fa fa-trash-o"></i
@@ -220,8 +232,8 @@
     </div>
     <!-- /. PAGE WRAPPER  -->
     <!-- /. WRAPPER  -->
-     <!-- load html -->
-     <div class="loader" id="loader" style="display:none;">
+    <!-- load html -->
+    <div class="loader" id="loader" style="display: none">
       <div class="loader-inner">
         <div class="loader-square"></div>
         <div class="loader-square"></div>
@@ -234,9 +246,7 @@
       </div>
     </div>
     <!-- FOOTER -->
-    <div id="footer-tape">
-      &copy; 2024 Flori Bica. All rights reserved.
-    </div>
+    <div id="footer-tape">&copy; 2024 Flori Bica. All rights reserved.</div>
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
     <script src="../../static/seller_assets/js/jquery-1.10.2.js"></script>

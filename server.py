@@ -10,6 +10,7 @@ from flask_app.controllers import (
     payments
 )
 from flask_app.controllers.seller import chart, confirm, tables, dashboard, add_car
+from flask_app.controllers.admin import dashboard, chart,confirm, tables, register
 
 load_dotenv()
 HOST = os.getenv('HOST')

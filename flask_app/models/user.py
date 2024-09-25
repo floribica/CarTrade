@@ -41,10 +41,26 @@ class User:
         return False
     
     
+    @classmethod
+    def get_all_user_id(cls):
+        query = "SELECT user_id FROM users WHERE role != 'admin';"
+        results = connectToMySQL(DB_NAME).query_db(query)
+        users_id = []
+        if results:
+            for result in results:
+                users_id.append(result)
+        return users_id
+    
+    
     # todo: is not correct
     @classmethod
     def add_user(cls, data):
-        query = "INSERT INTO users (first_name, last_name, email, password) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s);"
+        query = """
+            INSERT INTO users 
+                (first_name, last_name, email, password, role, nr_tel) 
+            VALUES 
+                (%(first_name)s, %(last_name)s, %(email)s, %(password)s, %(role)s, %(nr_tel)s);
+        """
         return connectToMySQL(DB_NAME).query_db(query, data)
     
     
@@ -75,13 +91,13 @@ class User:
         if len(data['last_name']) < 2:
             flash("Last name must be at least 2 characters", "register")
             return False
-        if len(data['password']) < 8:
-            flash("Password must be at least 8 characters", "register")
-            return False
-        if data['password'] != data['confirm_password']:
-            flash("Passwords do not match", "register")
-            return False
         if User.get_user_by_email(data):
             flash("Email already in use", "register")
+            return False
+        if data["role"] not in ['admin', 'seller']:
+            flash("Invalid role", "register")
+            return False
+        if len(data['nr_tel']) < 7:
+            flash("Phone number must be at least 10 characters", "register")
             return False
         return True

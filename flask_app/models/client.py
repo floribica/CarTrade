@@ -18,14 +18,31 @@ class Client:
 
     @classmethod
     def add_client(cls, data):
-        query = "INSERT INTO clients (first_name, last_name, email, nr_tel, car_id) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(nr_tel)s, %(car_id)s);"
+        query = """
+            INSERT INTO clients
+                (first_name, last_name, email, nr_tel, car_id)
+            VALUES
+                (%(first_name)s, %(last_name)s, %(email)s, %(nr_tel)s, %(car_id)s);
+            """
         return connectToMySQL(DB_NAME).query_db(query, data)
 
 
     @classmethod
     def get_client_id(cls, data):
         # Get the client ID of the last client that was just added
-        query = "SELECT client_id FROM clients WHERE first_name = %(first_name)s AND last_name = %(last_name)s AND email = %(email)s AND nr_tel = %(nr_tel)s AND car_id = %(car_id)s ORDER BY client_id DESC LIMIT 1;"
+        query = """
+            SELECT
+                client_id 
+            FROM clients
+            WHERE first_name = %(first_name)s 
+            AND last_name = %(last_name)s 
+            AND email = %(email)s 
+            AND nr_tel = %(nr_tel)s
+            AND car_id = %(car_id)s
+            ORDER BY client_id
+            DESC
+            LIMIT 1;
+        """
         result = connectToMySQL(DB_NAME).query_db(query, data)
         if result:
             return result[0]['client_id']
@@ -43,7 +60,14 @@ class Client:
     
     @classmethod
     def count_total_client_by_month(cls):
-        query = "SELECT COUNT(client_id) AS total_client, MONTHNAME(created_at) AS month FROM clients WHERE YEAR(created_at) = YEAR(CURDATE()) GROUP BY month;"
+        query = """
+            SELECT
+                COUNT(client_id) AS total_client,
+                MONTHNAME(created_at) AS month
+            FROM clients
+            WHERE YEAR(created_at) = YEAR(CURDATE())
+            GROUP BY month;
+        """
         result = connectToMySQL(DB_NAME).query_db(query)
         if result:
             return result

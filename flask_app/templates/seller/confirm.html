@@ -177,9 +177,18 @@
                           <td class="center">{{payment.status}}</td>
                           <td class="center">{{payment.car_id}}</td>
                           <td class="center">
-                            {{payment.first_name}} {{payment.last_name}}
+                            {{payment.client_first_name}}
+                            {{payment.client_last_name}}
                           </td>
-                          <td class="center">{{payment.confirmation}}</td>
+                          <td class="center">
+                            {% if payment.confirmation == 1 %}
+                            <span class="label label-success">Confirmed</span>
+                            {% else %}
+                            <span class="label label-danger"
+                              >Not Confirmed</span
+                            >
+                            {% endif %}
+                          </td>
                           <td class="center">${{payment.amount}}.00</td>
                           <td>
                             <a
@@ -196,13 +205,6 @@
                               onclick="showLoader()"
                             >
                               <i class="fa fa-lightbulb"></i>
-                            </a>
-                            <a
-                              href="/seller/cancel_payment/{{payment.payment_id}}"
-                              class="btn btn-danger btn-xs"
-                              onclick="showLoader()"
-                            >
-                              <i class="fa fa-times"></i>
                             </a>
                           </td>
                         </tr>
