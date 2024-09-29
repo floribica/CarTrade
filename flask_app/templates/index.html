@@ -124,7 +124,6 @@
                   {% else %}
                   <li class=""><a href="/login">login</a></li>
                   {% endif %}
-                  <li class="scroll"><a href="">{{user["first_name"]}}</a></li>
                 </ul>
                 <!--/.nav -->
               </div>
@@ -529,7 +528,7 @@
             <div class="item">
               <a href="#">
                 <img
-                  src="../static/assets/images/brand/br1.png"
+                  src="../static/assets/images/brand/br1.jpeg"
                   alt="brand-image"
                 />
               </a>
@@ -538,7 +537,7 @@
             <div class="item">
               <a href="#">
                 <img
-                  src="../static/assets/images/brand/br2.png"
+                  src="../static/assets/images/brand/br2.ico"
                   alt="brand-image"
                 />
               </a>
@@ -547,7 +546,7 @@
             <div class="item">
               <a href="#">
                 <img
-                  src="../static/assets/images/brand/br3.png"
+                  src="../static/assets/images/brand/br3.ico"
                   alt="brand-image"
                 />
               </a>
@@ -556,7 +555,7 @@
             <div class="item">
               <a href="#">
                 <img
-                  src="../static/assets/images/brand/br4.png"
+                  src="../static/assets/images/brand/br4.ico"
                   alt="brand-image"
                 />
               </a>
@@ -566,7 +565,7 @@
             <div class="item">
               <a href="#">
                 <img
-                  src="../static/assets/images/brand/br5.png"
+                  src="../static/assets/images/brand/br5.ico"
                   alt="brand-image"
                 />
               </a>
@@ -606,6 +605,7 @@
           id="myMessage"
           autocomplete="off"
           placeholder="Type your message..."
+          onkeydown="checkEnter(event)"
         />
         <button id="send-button" onclick="sendMessage()">Send</button>
       </div>
@@ -616,104 +616,40 @@
     <footer id="contact" class="contact">
       <div class="container">
         <div class="footer-top">
-          <div class="row">
+          <div
+            class="row"
+            style="display: flex; justify-content: space-between"
+          >
             <div class="col-md-3 col-sm-6">
               <div class="single-footer-widget">
                 <div class="footer-logo">
                   <a href="/">CarTrade</a>
                 </div>
-                <p>
-                  The reasone of our success is our customer satisfaction. Don't
-                  hesitate to contact us.
-                </p>
-                <div class="footer-contact">
-                  <p>info@CarTrade.com</p>
-                  <p>+1 (885) 2563154554</p>
-                </div>
               </div>
             </div>
-            <div class="col-md-2 col-sm-6">
-              <div class="single-footer-widget">
-                <h2>about devloon</h2>
-                <ul>
-                  <li><a href="#">about us</a></li>
-                  <li><a href="#">career</a></li>
-                  <li>
-                    <a href="#">terms <span> of service</span></a>
-                  </li>
-                  <li><a href="#">privacy policy</a></li>
-                </ul>
-              </div>
+            <div class="col-md-3 col-sm-6">
+              <p>
+                The reasone of our success is our customer satisfaction. Don't
+                hesitate to contact us.
+              </p>
             </div>
             <div class="col-md-3 col-xs-12">
-              <div class="single-footer-widget">
-                <h2>top brands</h2>
-                <div class="row">
-                  <div class="col-md-7 col-xs-6">
-                    <ul>
-                      <li><a href="#">BMW</a></li>
-                      <li><a href="#">lamborghini</a></li>
-                      <li><a href="#">camaro</a></li>
-                      <li><a href="#">audi</a></li>
-                      <li><a href="#">infiniti</a></li>
-                      <li><a href="#">nissan</a></li>
-                    </ul>
-                  </div>
-                  <div class="col-md-5 col-xs-6">
-                    <ul>
-                      <li><a href="#">ferrari</a></li>
-                      <li><a href="#">porsche</a></li>
-                      <li><a href="#">land rover</a></li>
-                      <li><a href="#">aston martin</a></li>
-                      <li><a href="#">mersedes</a></li>
-                      <li><a href="#">opel</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-offset-1 col-md-3 col-sm-6">
-              <div class="single-footer-widget">
-                <h2>news letter</h2>
-                <div class="footer-newsletter">
-                  <p>Register now to get updates on promotions and coupons.</p>
-                </div>
-                {% if user["user_id"] > 0 %}
-                <form action="/add/comment" method="post">
-                  <div class="hm-foot-email">
-                    <div class="foot-email-box">
-                      <input
-                        type="text"
-                        name="content"
-                        class="form-control"
-                        placeholder="Add Comment"
-                      />
-                    </div>
-                    <!--/.foot-email-box-->
-                    <div class="foot-email-subscribe">
-                      <button type="submit">
-                        <i class="fa fa-arrow-right"></i>
-                      </button>
-                    </div>
-                    <!--/.foot-email-icon-->
-                  </div>
-                </form>
-                {% endif %}
-                <!--/.hm-foot-email-->
+              <div class="footer-contact">
+                <p>info@CarTrade.com</p>
+                <p>+1 (885) 2563154554</p>
               </div>
             </div>
           </div>
         </div>
         <div class="footer-copyright">
           <div class="row">
-            <div class="col-sm-6"></div>
+            <div class="col-sm-6">
+              <p>&copy; 2024 Flori Bica. All rights reserved.</p>
+            </div>
             <div class="col-sm-6">
               <div class="footer-social">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-instagram"></i></a>
-                <a href="#"><i class="fa fa-linkedin"></i></a>
-                <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                <a href="#"><i class="fa fa-behance"></i></a>
+                <a target="_blank" href="https://www.instagram.com/floribica/"><i class="fa fa-instagram"></i></a>
+                <a target="_blank" href="https://www.linkedin.com/in/flori-bica-22705628b/"><i class="fa fa-linkedin"></i></a>
               </div>
             </div>
           </div>
@@ -739,8 +675,6 @@
     </footer>
     <!--/.contact-->
     <!--contact end-->
-
-    <!-- Include all js compiled plugins (below), or include individual files as needed -->
 
     <script src="../static/assets/js/jquery.js"></script>
 
@@ -800,65 +734,7 @@
       });
     </script>
 
-    <script>
-      const socket = io();
-      const chatbot = $("#chatbot");
-      const toggleButton = $("#toggle-button");
-      let inactivityTimeout;
-
-      // Function to hide the chatbot
-      function hideChatbot() {
-        chatbot.css("left", "-320px");
-      }
-
-      // Function to show the chatbot
-      function showChatbot() {
-        chatbot.css("left", "0px");
-        resetInactivityTimer();
-      }
-
-      // Function to send a message
-      function sendMessage() {
-        const msg = $("#myMessage").val();
-        if (msg.trim()) {
-          $("#messages").append($("<li>").text(msg).addClass("user-message"));
-          $("#myMessage").val("");
-          socket.send(msg);
-          $("#messages").scrollTop($("#messages")[0].scrollHeight); // Auto-scroll to the bottom
-        }
-      }
-
-      // Listen for messages from the server
-      socket.on("message", function (msg) {
-        $("#messages").append($("<li>").text(msg).addClass("bot-message"));
-        $("#messages").scrollTop($("#messages")[0].scrollHeight); // Auto-scroll to the bottom
-      });
-
-      // Toggle chatbot visibility
-      toggleButton.click(function () {
-        if (chatbot.css("left") === "0px") {
-          hideChatbot();
-        } else {
-          showChatbot();
-        }
-      });
-
-      // Reset inactivity timer
-      function resetInactivityTimer() {
-        clearTimeout(inactivityTimeout);
-        inactivityTimeout = setTimeout(hideChatbot, 5000); // Hide after 5 seconds of inactivity
-      }
-
-      // Event listeners to reset the timer on user interaction
-      $(document).on("mousemove click keypress", resetInactivityTimer);
-
-      // Hide the chatbot if clicked outside
-      $(document).click(function (event) {
-        if (!$(event.target).closest("#chatbot, #toggle-button").length) {
-          hideChatbot();
-        }
-      });
-    </script>
+    <script src="../static/js/chatbot.js"></script>
 
     <script>
       function showLoadingIcon() {

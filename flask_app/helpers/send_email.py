@@ -3,6 +3,7 @@ import os
 import smtplib
 
 from dotenv import load_dotenv
+from flask import render_template
 
 from flask_app.helpers.calculator import calculate_price
 from flask_app.models.car import Car
@@ -35,90 +36,22 @@ def user_email_confirm(data):
     amount = calculate_price(data)
     days = (datetime.strptime(data["dropoff_date"], "%Y-%m-%d") -
             datetime.strptime(data["pickup_date"], "%Y-%m-%d")).days
-    return f"""
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CarTrade Invoice</title>
-    </head>
-    <body style="font-family: Arial, sans-serif; color: #322d28; background-color: #f4f4f4; margin: 0; padding: 0;">
-
-    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f4f4f4; padding: 20px;">
-        <tr>
-            <td align="center">
-                <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff; border: 1px solid #dddddd; padding: 20px;">
-                    <tr>
-                        <td align="center" style="padding: 10px 0 20px 0;">
-                            <img src="http://www.travelerie.com/wp-content/uploads/2014/04/PlaceholderLogoBlue.jpg" alt="CarTrade" style="display: block; width: 200px;"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left" style="font-size: 16px; padding: 20px;">
-                            <h2 style="color: #1779ba; font-size: 24px;">Invoice</h2>
-                            <p>Hello, {data["first_name"]} {data["last_name"]},</p>
-                            <p>Thank you for your order!</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="left">
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
-                                <thead>
-                                    <tr>
-                                        <th align="left" style="border-bottom: 1px solid #dddddd; padding: 8px;">Item Description</th>
-                                        <th align="center" style="border-bottom: 1px solid #dddddd; padding: 8px;">Item ID</th>
-                                        <th align="center" style="border-bottom: 1px solid #dddddd; padding: 8px;">Days</th>
-                                        <th align="right" style="border-bottom: 1px solid #dddddd; padding: 8px;">Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td style="padding: 8px; border-bottom: 1px solid #dddddd;">{car["brand"]} {car["model"]} {car["year"]}</td>
-                                        <td align="center" style="padding: 8px; border-bottom: 1px solid #dddddd;">{data["car_id"]}</td>
-                                        <td align="center" style="padding: 8px; border-bottom: 1px solid #dddddd;">{days}</td>
-                                        <td align="right" style="padding: 8px; border-bottom: 1px solid #dddddd;">${amount["total_amount"]}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right" style="padding: 20px;">
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                <tr>
-                                    <td align="left" style="padding: 8px;">Subtotal</td>
-                                    <td align="right" style="padding: 8px;">${amount["subtotal"]}</td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="padding: 8px;">Shipping & Handling</td>
-                                    <td align="right" style="padding: 8px;">${amount["shipping"]}</td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="padding: 8px;">Tax (20%)</td>
-                                    <td align="right" style="padding: 8px;">${amount["tax"]}</td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="padding: 8px;"><strong>Total</strong></td>
-                                    <td align="right" style="padding: 8px;"><strong>${amount["total_amount"]}</strong></td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="padding: 20px;">
-                            <a href="http://localhost:5050/confirm_rent/{data["client_id"]}/{data['car_id']}" style="background-color: #28a745; color: #ffffff; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Confirm Rent</a>
-                        </td>
-
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-
-    </body>
-    </html>
-    """
+    
+    return render_template(
+        'emails/invoice_email.html', 
+        first_name=data["first_name"],
+        last_name=data["last_name"],
+        car_brand=car["brand"],
+        car_model=car["model"],
+        car_year=car["year"],
+        car_id=data["car_id"],
+        days=days,
+        total_amount=amount["total_amount"],
+        subtotal=amount["subtotal"],
+        shipping=amount["shipping"],
+        tax=amount["tax"],
+        client_id=data["client_id"]
+    )
 
 
 def client_email_confirm(data):

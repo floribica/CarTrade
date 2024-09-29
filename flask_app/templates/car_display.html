@@ -606,104 +606,48 @@
     <footer id="contact" class="contact">
       <div class="container">
         <div class="footer-top">
-          <div class="row">
+          <div
+            class="row"
+            style="
+              display: flex;
+              justify-content: space-between;
+              padding-top: 6%;
+            "
+          >
             <div class="col-md-3 col-sm-6">
               <div class="single-footer-widget">
                 <div class="footer-logo">
                   <a href="/">CarTrade</a>
                 </div>
-                <p>
-                  The reasone of our success is our customer satisfaction. Don't
-                  hesitate to contact us.
-                </p>
-                <div class="footer-contact">
-                  <p>info@CarTrade.com</p>
-                  <p>+1 (885) 2563154554</p>
-                </div>
               </div>
             </div>
-            <div class="col-md-2 col-sm-6">
-              <div class="single-footer-widget">
-                <h2>about devloon</h2>
-                <ul>
-                  <li><a href="#">about us</a></li>
-                  <li><a href="#">career</a></li>
-                  <li>
-                    <a href="#">terms <span> of service</span></a>
-                  </li>
-                  <li><a href="#">privacy policy</a></li>
-                </ul>
-              </div>
+            <div class="col-md-3 col-sm-6">
+              <p>
+                The reasone of our success is our customer satisfaction. Don't
+                hesitate to contact us.
+              </p>
             </div>
             <div class="col-md-3 col-xs-12">
-              <div class="single-footer-widget">
-                <h2>top brands</h2>
-                <div class="row">
-                  <div class="col-md-7 col-xs-6">
-                    <ul>
-                      <li><a href="#">BMW</a></li>
-                      <li><a href="#">lamborghini</a></li>
-                      <li><a href="#">camaro</a></li>
-                      <li><a href="#">audi</a></li>
-                      <li><a href="#">infiniti</a></li>
-                      <li><a href="#">nissan</a></li>
-                    </ul>
-                  </div>
-                  <div class="col-md-5 col-xs-6">
-                    <ul>
-                      <li><a href="#">ferrari</a></li>
-                      <li><a href="#">porsche</a></li>
-                      <li><a href="#">land rover</a></li>
-                      <li><a href="#">aston martin</a></li>
-                      <li><a href="#">mersedes</a></li>
-                      <li><a href="#">opel</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-offset-1 col-md-3 col-sm-6">
-              <div class="single-footer-widget">
-                <h2>news letter</h2>
-                <div class="footer-newsletter">
-                  <p>Register now to get updates on promotions and coupons.</p>
-                </div>
-                {% if user["user_id"] > 0 %}
-                <form action="/add/comment" method="post">
-                  <div class="hm-foot-email">
-                    <div class="foot-email-box">
-                      <input
-                        type="text"
-                        name="content"
-                        class="form-control"
-                        placeholder="Add Comment"
-                      />
-                    </div>
-                    <!--/.foot-email-box-->
-                    <div class="foot-email-subscribe">
-                      <button type="submit">
-                        <i class="fa fa-arrow-right"></i>
-                      </button>
-                    </div>
-                    <!--/.foot-email-icon-->
-                  </div>
-                </form>
-                {% endif %}
-                <!--/.hm-foot-email-->
+              <div class="footer-contact">
+                <p>info@CarTrade.com</p>
+                <p>+1 (885) 2563154554</p>
               </div>
             </div>
           </div>
         </div>
         <div class="footer-copyright">
           <div class="row">
-            <div class="col-sm-6"></div>
+            <div class="col-sm-6">
+              <p>&copy; 2024 Flori Bica. All rights reserved.</p>
+            </div>
             <div class="col-sm-6">
               <div class="footer-social">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-instagram"></i></a>
-                <a href="#"><i class="fa fa-linkedin"></i></a>
-                <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                <a href="#"><i class="fa fa-behance"></i></a>
+                <a target="_blank" href="https://www.instagram.com/floribica/"
+                  ><i class="fa fa-instagram"></i
+                ></a>
+                <a target="_blank" href="https://www.linkedin.com/in/flori-bica-22705628b/"
+                  ><i class="fa fa-linkedin"></i
+                ></a>
               </div>
             </div>
           </div>

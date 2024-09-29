@@ -50,31 +50,15 @@ def register_client():
         "amount": calculate_price(data)["total_amount"],
         "status": "pending"
     }
+    try:
+        message_user = user_email_confirm(data)
+        message_clent = client_email_confirm(data)
+        send_email(user_email["email"], "Confirm the Rental Car", message_user)
+        send_email(data["email"], "Rental Car Confirmation", message_clent)
+    except:
+        flash("Error sending email", "email_error")
+        return redirect(request.referrer)
     Rent.add_rent(data) 
     Payment.add_payment(paymrnt_data)
     
-    message_user = user_email_confirm(data)
-    message_clent = client_email_confirm(data)
-    send_email(user_email["email"], "Confirm the Rental Car", message_user)
-    send_email(data["email"], "Rental Car Confirmation", message_clent)
     return redirect("/")
-
-
-@app.route("/confirm_rent/<int:client_id>/<int:car_id>", methods=['POST', 'GET'])
-def confirm_rent(client_id, car_id):
-    if 'user' not in session:
-        return redirect('/login')
-
-    if request.method == 'GET':
-        data = {
-            "car_id": car_id,
-            "user_id": session['user']['user_id']
-        }
-        return redirect("/seller/confirm")
-
-    data = {
-        "car_id": car_id,
-        "client_id": client_id
-    }
-    Payment.confirm_payment(data)
-    return redirect("/seller/confirm")
