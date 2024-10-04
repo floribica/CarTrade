@@ -69,8 +69,9 @@ class Payment:
         """
         results = connectToMySQL(DB_NAME).query_db(query, data)
         payments = []
-        for payment in results:
-            payments.append(payment)
+        if results:
+            for payment in results:
+                payments.append(payment)
         return payments
 
 

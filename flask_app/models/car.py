@@ -26,8 +26,9 @@ class Car:
         query = "SELECT * FROM cars;"
         results = connectToMySQL(DB_NAME).query_db(query)
         cars = []
-        for car in results:
-            cars.append(car)
+        if results:
+            for car in results:
+                cars.append(car)
         return cars
     
     
@@ -102,7 +103,9 @@ class Car:
             "price": price
         }
         result = connectToMySQL(DB_NAME).query_db(query, data)
-        return result[0]['COUNT(*)']
+        if result:
+            return result[0]['COUNT(*)']
+        return 0
 
 
     @classmethod
@@ -112,7 +115,9 @@ class Car:
             "year": year
         }
         result = connectToMySQL(DB_NAME).query_db(query, data)
-        return result[0]['COUNT(*)']
+        if result:
+            return result[0]['COUNT(*)']
+        return 0
 
 
     @classmethod
@@ -122,7 +127,9 @@ class Car:
             "brand": brand
         }
         result = connectToMySQL(DB_NAME).query_db(query, data)
-        return result[0]['COUNT(*)']
+        if result:
+            return result[0]['COUNT(*)']
+        return 0
 
 
     @classmethod
@@ -132,7 +139,9 @@ class Car:
             "style": style
         }
         result = connectToMySQL(DB_NAME).query_db(query, data)
-        return result[0]['COUNT(*)']
+        if result:
+            return result[0]['COUNT(*)']
+        return 0
 
 
     @classmethod
@@ -142,7 +151,9 @@ class Car:
             "conditions": conditions
         }
         result = connectToMySQL(DB_NAME).query_db(query, data)
-        return result[0]['COUNT(*)']
+        if result:
+            return result[0]['COUNT(*)']
+        return 0
 
 
     @classmethod
@@ -152,7 +163,8 @@ class Car:
             "model": model
         }
         result = connectToMySQL(DB_NAME).query_db(query, data)
-        return result[0]['COUNT(*)']
+        if result:
+            return result[0]['COUNT(*)']
 
 
     @classmethod
@@ -162,7 +174,9 @@ class Car:
             "km": km
         }
         result = connectToMySQL(DB_NAME).query_db(query, data)
-        return result[0]['COUNT(*)']
+        if result:
+            return result[0]['COUNT(*)']
+        return 0
 
 
     @classmethod
@@ -172,7 +186,9 @@ class Car:
             "description": description
         }
         result = connectToMySQL(DB_NAME).query_db(query, data)
-        return result[0]['COUNT(*)']
+        if result:
+            return result[0]['COUNT(*)']
+        return 0
 
 
     @classmethod
@@ -199,8 +215,9 @@ class Car:
         query = "SELECT brand FROM cars WHERE display = 1 GROUP BY brand;"
         results = connectToMySQL(DB_NAME).query_db(query)
         brands = []
-        for brand in results:
-            brands.append(brand)
+        if results:
+            for brand in results:
+                brands.append(brand)
         return brands
 
 
